@@ -10,14 +10,17 @@ public class GraphNode {
      * bu ike brda gorusan hmn bu gereha vasl olan yallar mahsub olur
      */
     private final List<GraphEdge> edges;
+
     private final String name;
+    private final GraphNodeType type;
 
     /**
      * Ela xas bishey dare
      */
-    public GraphNode(String name) {
+    public GraphNode(String name, GraphNodeType type) {
         edges = new LinkedList<>();
         this.name = name;
+        this.type = type;
     }
 
     /**
@@ -26,6 +29,22 @@ public class GraphNode {
      */
     public List<GraphEdge> getEdges() {
         return edges;
+    }
+
+    /**
+     * Getter de xas bishey dar.
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Getter de gina
+     * @return
+     */
+    public GraphNodeType getType() {
+        return type;
     }
 
     /**
