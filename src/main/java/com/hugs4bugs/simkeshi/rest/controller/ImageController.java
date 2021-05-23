@@ -1,9 +1,6 @@
 package com.hugs4bugs.simkeshi.rest.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -11,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageController {
 
     @PostMapping("/image")
-    public String sendImage(@RequestBody MultipartFile file) {
+    public String sendImage(@RequestParam("image") MultipartFile file) {
         return null;
     }
 }
