@@ -26,7 +26,12 @@ public class CanvasTest extends AppCompatActivity {
     private FloatingActionButton fabDraw;
     private LinearLayout layoutFabs;
     private LinearLayout layoutMain;
-    private Button btnClear;
+    private  Button btnClear;
+    private Button fabJunctionBox;
+    private Button fabKey;
+    private Button fabPowerSource;
+    private Button fabLine;
+
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
@@ -39,6 +44,18 @@ public class CanvasTest extends AppCompatActivity {
         layoutFabs = findViewById(R.id.layout_fabs);
         layoutMain = findViewById(R.id.layout_main);
         btnClear = findViewById(R.id.btn_clear);
+        fabJunctionBox = findViewById(R.id.fab_junction_box);
+        fabKey = findViewById(R.id.fab_key);
+        fabPowerSource = findViewById(R.id.fab_power_source);
+        fabLine = findViewById(R.id.fab_line);
+
+
+
+
+
+
+
+
         btnClear.setOnClickListener((v) -> {
             Intent intent = new Intent(v.getContext(), CanvasTest.class);
             startActivity(intent);
