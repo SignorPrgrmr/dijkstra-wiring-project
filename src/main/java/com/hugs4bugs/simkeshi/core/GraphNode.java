@@ -1,4 +1,4 @@
-package com.hugs4bugs.simkeshi.entity;
+package com.hugs4bugs.simkeshi.core;
 
 import java.util.LinkedList;
 import java.util.List;
