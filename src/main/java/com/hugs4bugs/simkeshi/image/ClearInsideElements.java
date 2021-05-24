@@ -39,7 +39,7 @@ public class ClearInsideElements {
     public void clear() {
         operate();
         operate();
-        operate();
+//        operate();
     }
 
     private void operate() {
@@ -138,7 +138,7 @@ public class ClearInsideElements {
                 if (counter > side / 2) {
                     return true;
                 } else {
-                    if (!isBlack(img.getRGB(x, y + 1))) {
+                    if (!isBlack(img.getRGB(x, y + i))) {
                         counter++;
                     }
                 }
