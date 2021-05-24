@@ -1,4 +1,4 @@
-package com.example.electricproject;
+package com.example.electricproject.Controllers;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +17,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class captureImage extends AppCompatActivity {
+import com.example.electricproject.R;
+
+public class CaptureImage extends AppCompatActivity {
 
     private static final int PERMISSION_CODE= 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
