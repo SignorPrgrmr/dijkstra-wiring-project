@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/layout_main"
-    tools:context=".CanvasTest">
+    tools:context=".Controllers.CanvasTest">
 
     <RelativeLayout
         android:id="@+id/relative_layout"
