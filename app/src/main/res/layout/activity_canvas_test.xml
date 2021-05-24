@@ -12,6 +12,7 @@
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="500dp"
+        android:backgroundTint="#ACB3BF"
         android:background="@drawable/layout_border"
         android:orientation="vertical">
 

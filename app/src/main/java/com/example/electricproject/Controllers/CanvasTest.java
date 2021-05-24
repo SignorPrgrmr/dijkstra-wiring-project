@@ -107,7 +107,12 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             y = event.getY();
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 twTest.setText("x is: " + x + " and y is: " + y);
-                createBtn();
+                if (!(!flagFabPowerSource && !flagFabKey && !flagFabJunctionBox)) {
+                    createBtn();
+                } else if (flagFabLine) {
+                    //Do Line Stuff???
+                }
+
             }
             return true;
         });
@@ -118,11 +123,20 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private void createBtn() {
         relativeLayout = findViewById(R.id.relative_layout);
         Button btn = new Button(this);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(80, 80);
+        int btnSize = 80;
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(btnSize, btnSize);
         btn.setLayoutParams(lp);
-        btn.setX(x);
-        btn.setY(y);
-        btn.setBackgroundResource(R.drawable.vertices);
+        btn.setX(x - btnSize / 2);
+        btn.setY(y - btnSize / 2);
+        if (flagFabJunctionBox) {
+            btn.setBackgroundResource(R.drawable.junction_box);
+        }
+        if (flagFabKey) {
+            btn.setBackgroundResource(R.drawable.key);
+        }
+        if (flagFabPowerSource) {
+            btn.setBackgroundResource(R.drawable.power_source);
+        }
         btn.setId(verticesCount);
         verticesCount++;
 
