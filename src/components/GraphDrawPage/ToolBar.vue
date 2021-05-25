@@ -18,6 +18,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import "./../../../public/-variables";
 #toolbar-container {
   grid-area: toolbar;
 
@@ -25,9 +26,16 @@ export default {
   height: 100%;
   display: flex;
   flex-flow: column;
+  background: $toolbar-color;
+
 
   .toolbar-button {
     height: 80px;
+    background: $toolbar-color;
+    border: none;
+  }
+  .toolbar-button:hover {
+    background: darken($toolbar-color,10%);
   }
 }
 </style>

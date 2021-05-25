@@ -1,17 +1,18 @@
 <template>
-  <landing></landing>
+  <draw-page></draw-page>
 </template>
 
 <style lang="scss">
 body {
   margin: 0;
   padding: 0;
-  //height: 100vh;
+  height: 100vh;
 }
 </style>
 <script>
-import Landing from "./components/LandingPage";
+
+import DrawPage from "./components/GraphDrawPage/DrawPage";
 export default {
-  components: {Landing}
+  components: {DrawPage}
 }
 </script>
