@@ -23,7 +23,7 @@ export default {
 <style >
 ul {
   list-style-type: none;
-  margin: 1;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-flow: nowrap row;
