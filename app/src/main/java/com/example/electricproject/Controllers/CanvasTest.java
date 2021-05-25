@@ -33,6 +33,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private LinearLayout layoutFabs;
     private LinearLayout layoutMain;
     private Button btnClear;
+    private Button btnSubmit;
     private FloatingActionButton fabJunctionBox;
     private FloatingActionButton fabKey;
     private FloatingActionButton fabPowerSource;
@@ -45,9 +46,10 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canvas_test);
+//====================================================Start of Initialize All Stuff==============//
+        btnSubmit = findViewById(R.id.btn_submit);
         twTest = findViewById(R.id.tw_test);
         relativeLayout = findViewById(R.id.relative_layout);
         fabDraw = findViewById(R.id.fab_draw);
@@ -59,10 +61,21 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         fabPowerSource = findViewById(R.id.fab_power_source);
         fabLine = findViewById(R.id.fab_line);
         buttons = new ArrayList<>();
+        vLocation = new ArrayList<>();
         flagFabKey = false;
         flagFabPowerSource = false;
         flagFabJunctionBox = false;
         flagFabLine = false;
+//====================================================End of Initialize All Stuff==============//
+
+//====================================================Start of Submit============//
+
+        btnSubmit.setOnClickListener((v) -> {
+            // make and submit graph
+        });
+
+
+//=====================================================End of Submit============//
 
 //======================================================Start of Fabs===================//
         fabDraw.setOnClickListener((v) -> {
@@ -91,17 +104,14 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             }
         });
 //=======================================================End of Fabs==================//
-
         btnClear.setOnClickListener((v) -> {
             Intent intent = new Intent(v.getContext(), CanvasTest.class);
             startActivity(intent);
         });
-
-
         layoutMain.setOnClickListener((v -> {
             layoutFabs.setVisibility(View.INVISIBLE);
         }));
-        vLocation = new ArrayList<>();
+//==============================================================Start of Canvas=========//
         relativeLayout.setOnTouchListener((v, event) -> {
             x = event.getX();
             y = event.getY();
@@ -110,11 +120,9 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                 if (!(!flagFabPowerSource && !flagFabKey && !flagFabJunctionBox)) {
                     if (flagFabJunctionBox) {
                         alertJunctionBox();
-
                     }
                     if (flagFabKey) {
                         alertKey();
-
                     }
                     if (flagFabPowerSource) {
                         alertPowerSource();
@@ -126,9 +134,11 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             }
             return true;
         });
+//==============================================================End of Canvas==========//
+
 
     }
-
+//=======================================================Start of Create Button======//
     @SuppressLint("SetTextI18n")
     private void createBtn() {
         relativeLayout = findViewById(R.id.relative_layout);
@@ -157,26 +167,27 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         buttons.add(btn);
         btn.setOnClickListener((view) -> {
             int id = btn.getId();
-            twTest.setText("btn id : " + id + " x : "
-                    + vLocation.get(id)[0] + " y : "
-                    + vLocation.get(id)[1] + " type: "
-                    + vLocation.get(id)[2]);
+            twTest.setText(
+                    "btn id : " + id
+                    + " x : " + vLocation.get(id)[0]
+                    + " y : " + vLocation.get(id)[1]
+                    + " type: " + vLocation.get(id)[2]
+            );
         });
     }
+//========================================================End of Create Button======//
 
+//=====================================================Start of Alerts=======//
     private void alertJunctionBox() {
         alertPutButton(JUNCTIONBOX);
     }
-
     private void alertPowerSource() {
         alertPutButton(POWERSOURCE);
 
     }
-
     private void alertKey() {
         alertPutButton(KEY);
     }
-
     private void alertPutButton(String element) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Put A " + element + "?")
@@ -196,7 +207,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         alert.setTitle("Put Element Down");
         alert.show();
     }
-
+//=======================================================End of Alerts======//
     private void chooseOneFab(String chosen) {
         if (chosen.equals(JUNCTIONBOX)) {
             flagFabJunctionBox = true;
@@ -240,4 +251,10 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             fabJunctionBox.getBackground().setAlpha(255);
         }
     }
+
+    private void clickOnButtons() {
+
+    }
+
+
 }
