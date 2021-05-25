@@ -11,9 +11,15 @@
 </div>
 </template>
 
+<script>
+export default {
+  name:'LandingPage'
+}
+</script>
+
 <style lang="scss">
 div.page{
-  background-image: url("../assets/Circuit Board.svg");
+  //background-image: url("../assets/Circuit Board.svg");
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -21,9 +27,6 @@ div.page{
   align-items: center;
 }
 
-div.buttons{
-
-}
 
 button{
   width: 200px;
@@ -40,8 +43,4 @@ button:hover{
   background-color:rgba(108, 117, 125, 1) ;
   color:rgba(255, 255, 255, 1);
 }
-
-export default {
-
-}
-</script>
+</style>

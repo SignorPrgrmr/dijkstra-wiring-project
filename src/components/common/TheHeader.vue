@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="header-container">
     <ul>
       <li><a href="#">Home</a></li>
       <li><a href="#">ClearAll</a></li>
@@ -21,14 +21,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style >
+#header-container{
+  grid-area: header;
+  width: 100%;
+  max-height: 80px;
+  /*height: 10%;*/
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: left;
+  align-items: center;
+  background: #6C757D;
+}
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-flow: nowrap row;
-  width: 100%;
-  background-color: rgba(108, 117, 125, 1);
+  /*width: 100%;*/
 }
 
 a {
@@ -43,6 +53,7 @@ li {
   display: inline;
   margin: 20px 20px;
   border-radius: 10px;
+  font-size: 16pt;
 }
 
 li:hover {
