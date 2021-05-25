@@ -21,6 +21,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style >
+div{
+  grid-area: header;
+  width: 100%;
+  height: 100%;
+  /*height: 10%;*/
+}
 ul {
   list-style-type: none;
   margin: 0;

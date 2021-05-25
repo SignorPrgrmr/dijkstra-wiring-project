@@ -57,6 +57,7 @@ label {
   width: 12vw;
   height: 27%;
   margin: 0;
+
 }
 
 label:hover {
