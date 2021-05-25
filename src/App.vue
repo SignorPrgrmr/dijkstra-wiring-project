@@ -1,7 +1,6 @@
 <template>
   <div id="nav">
-    <the-header></the-header>
-    <img-input></img-input>
+    <landing></landing>
   </div>
 </template>
 
@@ -9,9 +8,8 @@
 
 </style>
 <script>
-import TheHeader from "./components/common/TheHeader";
-import ImgInput from "./components/ImgInput/ImgInput";
+import Landing from "./components/Landing";
 export default {
-  components: {ImgInput, TheHeader}
+  components: {Landing}
 }
 </script>
