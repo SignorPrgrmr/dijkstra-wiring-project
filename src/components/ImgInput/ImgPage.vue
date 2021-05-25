@@ -26,5 +26,6 @@ export default {
   'header'
   'body';
   height: 100%;
+  grid-template-rows: 80px auto;
 }
 </style>

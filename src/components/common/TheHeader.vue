@@ -24,12 +24,13 @@ export default {
 #header-container{
   grid-area: header;
   width: 100%;
-  height: 100%;
+  max-height: 80px;
   /*height: 10%;*/
   display: flex;
   flex-flow: nowrap row;
   justify-content: left;
   align-items: center;
+  background: #6C757D;
 }
 ul {
   list-style-type: none;
@@ -37,8 +38,7 @@ ul {
   padding: 0;
   display: flex;
   flex-flow: nowrap row;
-  width: 100%;
-  background-color: rgba(108, 117, 125, 1);
+  /*width: 100%;*/
 }
 
 a {
@@ -53,6 +53,7 @@ li {
   display: inline;
   margin: 20px 20px;
   border-radius: 10px;
+  font-size: 16pt;
 }
 
 li:hover {
