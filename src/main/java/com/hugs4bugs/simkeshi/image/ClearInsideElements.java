@@ -1,4 +1,5 @@
 package com.hugs4bugs.simkeshi.image;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -25,9 +26,6 @@ public class ClearInsideElements {
 
     private BufferedImage img;
 
-    public ClearInsideElements() {
-    }
-
     public ClearInsideElements(File file) throws IOException {
         this.img = ImageIO.read(file);
     }
@@ -36,10 +34,28 @@ public class ClearInsideElements {
         this.img = img;
     }
 
+    public void setImg(BufferedImage img) {
+        this.img = img;
+    }
+
+
+    public BufferedImage getImg() {
+        return img;
+    }
+
     public void clear() {
         operate();
         operate();
-        operate();
+//        operate();
+    }
+
+    public boolean saveJPG(String path) {
+        try {
+            ImageIO.write(img, "jpg", new File(path));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private void operate() {
@@ -138,7 +154,7 @@ public class ClearInsideElements {
                 if (counter > side / 2) {
                     return true;
                 } else {
-                    if (!isBlack(img.getRGB(x, y + 1))) {
+                    if (!isBlack(img.getRGB(x, y + i))) {
                         counter++;
                     }
                 }
