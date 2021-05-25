@@ -127,10 +127,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                     if (flagFabPowerSource) {
                         alertPowerSource();
                     }
-                } else if (flagFabLine) {
-                    //Do Line Stuff???
                 }
-
             }
             return true;
         });
@@ -138,7 +135,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
 
 
     }
-//=======================================================Start of Create Button======//
+
+    //=======================================================Start of Create Button======//
     @SuppressLint("SetTextI18n")
     private void createBtn() {
         relativeLayout = findViewById(R.id.relative_layout);
@@ -169,25 +167,31 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             int id = btn.getId();
             twTest.setText(
                     "btn id : " + id
-                    + " x : " + vLocation.get(id)[0]
-                    + " y : " + vLocation.get(id)[1]
-                    + " type: " + vLocation.get(id)[2]
+                            + " x : " + vLocation.get(id)[0]
+                            + " y : " + vLocation.get(id)[1]
+                            + " type: " + vLocation.get(id)[2]
             );
+            clickOnButtons(btn);
+
+
         });
     }
 //========================================================End of Create Button======//
 
-//=====================================================Start of Alerts=======//
+    //=====================================================Start of Alerts=======//
     private void alertJunctionBox() {
         alertPutButton(JUNCTIONBOX);
     }
+
     private void alertPowerSource() {
         alertPutButton(POWERSOURCE);
 
     }
+
     private void alertKey() {
         alertPutButton(KEY);
     }
+
     private void alertPutButton(String element) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Put A " + element + "?")
@@ -207,7 +211,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         alert.setTitle("Put Element Down");
         alert.show();
     }
-//=======================================================End of Alerts======//
+
+    //=======================================================End of Alerts======//
     private void chooseOneFab(String chosen) {
         if (chosen.equals(JUNCTIONBOX)) {
             flagFabJunctionBox = true;
@@ -252,8 +257,10 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         }
     }
 
-    private void clickOnButtons() {
+    private void clickOnButtons(Button btn) {
+        for (Button btns : buttons) {
 
+        }
     }
 
 
