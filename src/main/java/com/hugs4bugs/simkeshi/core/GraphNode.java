@@ -99,4 +99,21 @@ public class GraphNode {
         }
         return edges.remove(target);
     }
+
+    /**
+     * bu method serfan bidana edge'e remove elar dar surate vojud
+     * @param edge
+     * @return
+     */
+    public boolean removeEdge(GraphEdge edge) {
+        return edges.remove(edge) && edge.getAdjacent(this).getEdges().remove(edge);
+    }
+
+    public boolean remove() {
+        boolean isRemoved = true;
+        for (GraphEdge edge : edges) {
+            isRemoved = isRemoved && removeEdge(edge);
+        }
+        return isRemoved;
+    }
 }

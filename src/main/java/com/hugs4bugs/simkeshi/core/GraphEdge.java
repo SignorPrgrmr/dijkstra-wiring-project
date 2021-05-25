@@ -1,6 +1,6 @@
 package com.hugs4bugs.simkeshi.core;
 
-public class GraphEdge {
+public class GraphEdge implements Comparable<GraphEdge> {
 
     private final GraphNode firstNode;
     private final GraphNode secondNode;
@@ -54,5 +54,10 @@ public class GraphEdge {
      */
     public GraphNode getAdjacent(GraphNode node) {
         return node == firstNode ? secondNode : node == secondNode ? firstNode : null;
+    }
+
+    @Override
+    public int compareTo(GraphEdge graphEdge) {
+        return cost - graphEdge.cost;
     }
 }
