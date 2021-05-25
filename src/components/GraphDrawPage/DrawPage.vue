@@ -28,7 +28,7 @@ export default {
   grid-template-areas:
     'header header'
     'toolbar drawbox';
-  grid-template-rows: 10% 90%;
+  grid-template-rows: 80px auto;
   grid-template-columns: 15% 85%;
 
 }

@@ -29,14 +29,14 @@ div.page{
 
 
 button{
-  width: 200px;
-  height: 50px;
-  margin: 10px;
+  width: 300px;
+  height: 95px;
+  margin: 30px;
   border: rgba(108, 117, 125, 1) solid 1px;
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 1);
-  font-size: 1.5em;
-
+  color: #50575c;
+  font-size: 24pt;
 }
 
 button:hover{
