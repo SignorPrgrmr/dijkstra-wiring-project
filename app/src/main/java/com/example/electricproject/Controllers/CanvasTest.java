@@ -131,10 +131,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                     if (flagFabPowerSource) {
                         alertPowerSource();
                     }
-                } else if (flagFabLine) {
-                    //Do Line Stuff???
                 }
-
             }
             return true;
         });
