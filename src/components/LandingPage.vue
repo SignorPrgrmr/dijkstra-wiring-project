@@ -19,7 +19,7 @@ export default {
 
 <style lang="scss">
 div.page{
-  //background-image: url("../assets/Circuit Board.svg");
+  background-image: url("../assets/Circuit Board.svg");
   height: 100vh;
   width: 100vw;
   display: flex;
