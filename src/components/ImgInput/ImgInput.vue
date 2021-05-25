@@ -57,9 +57,6 @@ label {
   width: 12vw;
   height: 27%;
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
 }
 
