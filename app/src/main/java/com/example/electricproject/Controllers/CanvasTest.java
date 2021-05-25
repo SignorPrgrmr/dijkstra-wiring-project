@@ -28,6 +28,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private float y;
     private int verticesCount;
     private ArrayList<float[]> vLocation;
+    private ArrayList<Button> buttons;
     private FloatingActionButton fabDraw;
     private LinearLayout layoutFabs;
     private LinearLayout layoutMain;
@@ -57,12 +58,16 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         fabKey = findViewById(R.id.fab_key);
         fabPowerSource = findViewById(R.id.fab_power_source);
         fabLine = findViewById(R.id.fab_line);
+        buttons = new ArrayList<>();
         flagFabKey = false;
         flagFabPowerSource = false;
         flagFabJunctionBox = false;
         flagFabLine = false;
 
-
+//======================================================Start of Fabs===================//
+        fabDraw.setOnClickListener((v) -> {
+            layoutFabs.setVisibility(View.VISIBLE);
+        });
         fabJunctionBox.setOnClickListener((v) -> {
             if (!flagFabJunctionBox) {
                 chooseOneFab(JUNCTIONBOX);
@@ -85,7 +90,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                 chooseOneFab(LINE);
             }
         });
-
+//=======================================================End of Fabs==================//
 
         btnClear.setOnClickListener((v) -> {
             Intent intent = new Intent(v.getContext(), CanvasTest.class);
@@ -96,11 +101,6 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         layoutMain.setOnClickListener((v -> {
             layoutFabs.setVisibility(View.INVISIBLE);
         }));
-
-
-        fabDraw.setOnClickListener((v) -> {
-            layoutFabs.setVisibility(View.VISIBLE);
-        });
         vLocation = new ArrayList<>();
         relativeLayout.setOnTouchListener((v, event) -> {
             x = event.getX();
@@ -108,7 +108,17 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 twTest.setText("x is: " + x + " and y is: " + y);
                 if (!(!flagFabPowerSource && !flagFabKey && !flagFabJunctionBox)) {
-                    createBtn();
+                    if (flagFabJunctionBox) {
+                        alertJunctionBox();
+
+                    }
+                    if (flagFabKey) {
+                        alertKey();
+
+                    }
+                    if (flagFabPowerSource) {
+                        alertPowerSource();
+                    }
                 } else if (flagFabLine) {
                     //Do Line Stuff???
                 }
@@ -130,35 +140,41 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         btn.setY(y - btnSize / 2);
         if (flagFabJunctionBox) {
             btn.setBackgroundResource(R.drawable.junction_box);
+            vLocation.add(new float[]{x, y, TYPE_JUNCTIONBOX});
         }
         if (flagFabKey) {
             btn.setBackgroundResource(R.drawable.key);
+            vLocation.add(new float[]{x, y, TYPE_KEY});
         }
         if (flagFabPowerSource) {
             btn.setBackgroundResource(R.drawable.power_source);
+            vLocation.add(new float[]{x, y, TYPE_POWERSOURCE});
         }
         btn.setId(verticesCount);
         verticesCount++;
 
-        vLocation.add(new float[]{x, y});
         relativeLayout.addView(btn);
-
+        buttons.add(btn);
         btn.setOnClickListener((view) -> {
             int id = btn.getId();
-            twTest.setText("btn id : " + id + " x : " + vLocation.get(id)[0] + " y : " + vLocation.get(id)[1]);
+            twTest.setText("btn id : " + id + " x : "
+                    + vLocation.get(id)[0] + " y : "
+                    + vLocation.get(id)[1] + " type: "
+                    + vLocation.get(id)[2]);
         });
     }
 
     private void alertJunctionBox() {
-
+        alertPutButton(JUNCTIONBOX);
     }
 
     private void alertPowerSource() {
+        alertPutButton(POWERSOURCE);
 
     }
 
     private void alertKey() {
-
+        alertPutButton(KEY);
     }
 
     private void alertPutButton(String element) {
@@ -168,16 +184,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (element.equals(POWERSOURCE)) {
-                            // put down a power source
-                        }
-                        if (element.equals(JUNCTIONBOX)) {
-                            //put down a junction box
-                        }
-                        if (element.equals(KEY)) {
-                            // put down a key
-                        }
-
+                        createBtn();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
