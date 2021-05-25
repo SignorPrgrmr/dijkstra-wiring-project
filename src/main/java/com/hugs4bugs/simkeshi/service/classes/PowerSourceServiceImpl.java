@@ -13,7 +13,7 @@ public class PowerSourceServiceImpl implements PowerSourceService {
     private PrimAlgorithm primAlgorithm;
 
     @Override
-    public void findTheOptimumSolution(GraphNode head) {
-
+    public GraphNode findTheOptimumSolution(GraphNode head) {
+    return primAlgorithm.findTheOptimumSolution(head);
     }
 }
