@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="header-container">
     <ul>
       <li><a href="#">Home</a></li>
       <li><a href="#">ClearAll</a></li>
@@ -21,11 +21,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style >
-div{
+#header-container{
   grid-area: header;
   width: 100%;
   height: 100%;
   /*height: 10%;*/
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: left;
+  align-items: center;
 }
 ul {
   list-style-type: none;

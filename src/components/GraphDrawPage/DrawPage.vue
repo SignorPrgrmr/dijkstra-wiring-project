@@ -26,8 +26,10 @@ export default {
   height: 100%;
   display: grid;
   grid-template-areas:
-    'header header header header'
-    'toolbar drawbox drawbox drawbox';
+    'header header'
+    'toolbar drawbox';
   grid-template-rows: 10% 90%;
+  grid-template-columns: 15% 85%;
+
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-<!--  <img-page></img-page>-->
-  <draw-page></draw-page>
+  <img-page></img-page>
+<!--  <draw-page></draw-page>-->
 </template>
 
 <style lang="scss">
@@ -11,8 +11,8 @@ body {
 }
 </style>
 <script>
-import DrawPage from "./components/GraphDrawPage/DrawPage";
+import ImgPage from "./components/ImgInput/ImgPage";
 export default {
-  components: {DrawPage}
+  components: {ImgPage}
 }
 </script>
