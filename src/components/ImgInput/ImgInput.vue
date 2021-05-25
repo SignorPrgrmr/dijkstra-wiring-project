@@ -1,17 +1,81 @@
 <template>
+  <div>
+    <form action="">
+      <input type="file" id="fileUpload" v-on:change="loadFile" hidden accept="image/png, image/jpeg">
+      <label for="fileUpload">Upload Image</label>
+    </form>
 
+
+    <div class="container pic">
+      <img :src="imgSrc" id="preview">
+    </div>
+
+
+  </div>
 </template>
 
-<script>
+<script >
+
 export default {
-  name: 'ImgInput',
+  name: 'InputImg',
   props: {
-    msg: String
-  }
-}
+
+  },
+  data(){
+    return{
+      imgSrc: require("@/assets/undraw_Add_files_re_v09g.svg")
+    }
+  },
+  methods:{
+    loadFile(event){
+      let src=URL.createObjectURL(event.target.files[0]);
+      this.imgSrc = src
+
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style >
+form {
+  display: flex;
+  justify-content: center;
+  height: 20vh;
+  align-items: center;
+}
 
-</style>
+label {
+  text-align: center;
+  font-size: 20px;
+  border: 0px;
+  border-radius: 20px;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  color: aliceblue;
+  background-color: rgba(52, 58, 64, 1);
+  width: 12vw;
+  height: 27%;
+  margin: 0;
+}
+
+label:hover {
+  box-shadow: 5px 7px rgba(0, 0, 0, 0.05);
+}
+
+img {
+  width: 50vw;
+  height: 60vh;
+  border: rgba(206, 212, 218, 1) 2px dashed;
+  align-self: center;
+  padding: 5px;
+  border-radius: 35px;
+  box-shadow: 5px 7px rgba(39, 38, 38, 0.041);
+}
+
+div.pic {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}</style>
