@@ -1,6 +1,5 @@
 <template>
-  <img-page></img-page>
-<!--  <draw-page></draw-page>-->
+  <landing></landing>
 </template>
 
 <style lang="scss">
@@ -11,8 +10,8 @@ body {
 }
 </style>
 <script>
-import ImgPage from "./components/ImgInput/ImgPage";
+import Landing from "./components/LandingPage";
 export default {
-  components: {ImgPage}
+  components: {Landing}
 }
 </script>
