@@ -5,6 +5,7 @@
     <draw-box ref="Graph"></draw-box>
   </div>
 
+  <preview></preview>
 
   <div id="drawPage-backdrop"></div> <!-- close preview when clicked on -->
 
@@ -14,9 +15,10 @@
 import TheHeader from "../common/TheHeader";
 import ToolBar from "./ToolBar";
 import DrawBox from "./DrawBox";
+import Preview from "@/components/common/Preview";
 export default {
   name: 'DrawPage',
-  components: {DrawBox, ToolBar, TheHeader},
+  components: {Preview, DrawBox, ToolBar, TheHeader},
   methods:{
     deleteGraph(){
       this.$refs.Grapg.DeleteGraph()
