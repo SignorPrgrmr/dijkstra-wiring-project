@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,6 +43,9 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private boolean flagFabPowerSource;
     private boolean flagFabJunctionBox;
     private boolean flagFabLine;
+
+    private float x1,y1,x2,y2;
+    private int[] linePointsId ={0,1};
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
@@ -135,8 +139,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
 
 
     }
-
-    //=======================================================Start of Create Button======//
+//=======================================================Start of Create Button======//
     @SuppressLint("SetTextI18n")
     private void createBtn() {
         relativeLayout = findViewById(R.id.relative_layout);
@@ -167,31 +170,25 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             int id = btn.getId();
             twTest.setText(
                     "btn id : " + id
-                            + " x : " + vLocation.get(id)[0]
-                            + " y : " + vLocation.get(id)[1]
-                            + " type: " + vLocation.get(id)[2]
+                    + " x : " + vLocation.get(id)[0]
+                    + " y : " + vLocation.get(id)[1]
+                    + " type: " + vLocation.get(id)[2]
             );
-            clickOnButtons(btn);
-
-
         });
     }
 //========================================================End of Create Button======//
 
-    //=====================================================Start of Alerts=======//
+//=====================================================Start of Alerts=======//
     private void alertJunctionBox() {
         alertPutButton(JUNCTIONBOX);
     }
-
     private void alertPowerSource() {
         alertPutButton(POWERSOURCE);
 
     }
-
     private void alertKey() {
         alertPutButton(KEY);
     }
-
     private void alertPutButton(String element) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Put A " + element + "?")
@@ -211,8 +208,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         alert.setTitle("Put Element Down");
         alert.show();
     }
-
-    //=======================================================End of Alerts======//
+//=======================================================End of Alerts======//
     private void chooseOneFab(String chosen) {
         if (chosen.equals(JUNCTIONBOX)) {
             flagFabJunctionBox = true;
@@ -257,11 +253,42 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         }
     }
 
-    private void clickOnButtons(Button btn) {
-        for (Button btns : buttons) {
+    private void clickOnButtons() {
 
-        }
     }
-
-
+//=========================================Start of Draw Line=============//
+    @SuppressLint("SetTextI18n")
+    private void drawLine(int weight){
+        x1 = vLocation.get(linePointsId[0])[0];
+        y1 = vLocation.get(linePointsId[0])[1];
+        x2 = vLocation.get(linePointsId[1])[0];
+        y2 = vLocation.get(linePointsId[1])[1];
+        relativeLayout = findViewById(R.id.relative_layout);
+        //imageview for edge
+        ImageView iv = new ImageView(this);
+        //textview for weight
+        TextView tw = new TextView(this);
+        int x = (int)(x2-x1);
+        int y = (int)(y2-y1);
+        int width = Math.abs(x);
+        int height = Math.abs(y);
+        RelativeLayout.LayoutParams lp_iv = new RelativeLayout.LayoutParams(width, height);
+        RelativeLayout.LayoutParams lp_tw = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        iv.setX(Math.min(x1,x2));
+        iv.setY(Math.min(y1,y2));
+        tw.setX(Math.min(x1,x2)+(width/2));
+        tw.setY(Math.min(y1,y2)+(height/2)-100);
+        iv.setLayoutParams(lp_iv);
+        tw.setLayoutParams(lp_tw);
+        tw.setText(""+weight);
+        tw.setTextSize(20);
+        if(x*y >=0){
+            iv.setBackgroundResource(R.drawable.ic_left_diagonal);
+        }else {
+            iv.setBackgroundResource(R.drawable.ic_right_diagonal);
+        }
+        relativeLayout.addView(iv);
+        relativeLayout.addView(tw);
+    }
+//================================================End of Draw Line=======//
 }
