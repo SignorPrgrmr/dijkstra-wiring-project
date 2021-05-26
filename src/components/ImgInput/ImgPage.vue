@@ -2,7 +2,7 @@
   <div id="imgPage-container">
     <the-header page="Clear Image" @ClearImage="deleteImage" @PreviewImageGraph="PreviewImageGraph"></the-header>
     <input-img ref="Image" @makeGraph="MakeGraph"></input-img>
-    <div class="preview" v-if="Preview">
+    <div class="preview" v-show="Preview">
       <div class="inner" @click="hidePreview">
         <preview ref="PreviewPage"></preview>
       </div>
@@ -32,8 +32,7 @@ export default {
       this.$refs.Image.GetImageGraphFromBack()
     },
     MakeGraph(graph){
-      // this.$refs.PreviewPage.DrawGraph(graph)
-      console.log(graph)
+      this.$refs.PreviewPage.DrawGraph(graph)
     },
     hidePreview(){
       this.preview = false
