@@ -1,12 +1,16 @@
 <template>
   <div id="preview-container">
-
+    <div id="preview-content">
+      <graph-node class="node-switch node-preview"></graph-node>
+    </div>
   </div>
 </template>
 
 <script>
+import GraphNode from "@/components/GraphDrawPage/GraphNode";
 export default {
   name: 'Preview',
+  components: {GraphNode},
   methods:{
     DrawGraph(graph){
       //drawGraph
@@ -28,5 +32,11 @@ export default {
   z-index: 3;
   background: #ffffff;
   border-radius: 20px;
+
+  #preview-content {
+    width: 90%;
+    height: 90%;
+    border: solid 1px;
+  }
 }
 </style>
