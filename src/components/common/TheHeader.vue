@@ -38,6 +38,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
+@import "./../../../public/-variables";
 
 #header-container {
   grid-area: header;
@@ -48,7 +49,7 @@ export default {
   flex-flow: nowrap row;
   justify-content: left;
   align-items: center;
-  background: #6C757D;
+  background: $color-primary;
 
   #header-list {
     list-style-type: none;
@@ -68,13 +69,13 @@ export default {
       a {
         font-family: sans-serif;
         text-decoration: none;
-        color: aliceblue;
+        color: $color-text;
         padding: 8px 16px;
         border-radius: 10px;
       }
       a:hover {
-        color: rgba(108, 117, 125, 1);
-        background-color: aliceblue;
+        color: $color-primary;
+        background-color: $color-text;
       }
     }
 
