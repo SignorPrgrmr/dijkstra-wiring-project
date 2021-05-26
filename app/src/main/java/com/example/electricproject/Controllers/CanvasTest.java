@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -135,12 +137,17 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                     if (flagFabPowerSource) {
                         alertPowerSource();
                     }
+                } else if (flagFabLine) {
+                    unSelectButtons();
+                    btnTmp = null;
+                    selected = false;
                 }
             }
             return true;
         });
 //==============================================================End of Canvas==========//
     }
+
     //=======================================================Start of Create Button======//
     @SuppressLint("SetTextI18n")
     private void createBtn() {
@@ -178,16 +185,19 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             );
             if (flagFabLine) {
                 if (selected) {
-                    if (btn.getId() != btnTmp.getId()) {
-                        linePointsId[1] = btn.getId();
-                        alertPutLine(btn);
+                    if (btnTmp != null) {
+                        if (btn.getId() != btnTmp.getId()) {
+                            linePointsId[1] = btn.getId();
+                            alertPutLine(btn);
+                        }
+                    } else {
+                        selected = false;
                     }
                 } else {
                     btnTmp = btn;
                     selectButton(btnTmp);
                     linePointsId[0] = btnTmp.getId();
                 }
-
             }
         });
 
@@ -196,19 +206,19 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
 
     //=====================================================Start of Alerts=======//
     private void alertJunctionBox() {
-        alertPutButton(JUNCTIONBOX);
+        alertPutButton(JUNCTIONBOX, getEmoji(0x1F9F0));
     }
 
     private void alertPowerSource() {
-        alertPutButton(POWERSOURCE);
+        alertPutButton(POWERSOURCE, getEmoji(0x1F50B) + getEmoji(0x26A1));
 
     }
 
     private void alertKey() {
-        alertPutButton(KEY);
+        alertPutButton(KEY, getEmoji(0x1F5DD));
     }
 
-    private void alertPutButton(String element) {
+    private void alertPutButton(String element, String emoji) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Put A " + element + "?")
                 .setCancelable(false)
@@ -224,7 +234,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             }
         });
         AlertDialog alert = builder.create();
-        alert.setTitle("Put Element Down");
+        alert.setTitle("Put Element Down" + emoji);
         alert.show();
     }
 
@@ -253,6 +263,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                     public void onClick(DialogInterface dialog, int which) {
                         drawLine(value[0]);
                         selected = false;
+                        unSelectButtons();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
@@ -261,7 +272,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             }
         });
         AlertDialog alert = builder.create();
-        alert.setTitle("Now I Gotta Draw A Line " + getEmoji(0x1F440));
+        alert.setTitle("Now I Gotta Draw A Line " + getEmoji(0x1F440) + getEmoji(0x1F3B6));
         alert.show();
     }
 
@@ -354,10 +365,38 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
 
     private void selectButton(Button btn) {
         selected = true;
-        //make every bitch selectable;
+        for (Button btns : buttons) {
+            int id = btns.getId();
+            if (!(id == btn.getId())) {
+                float type = vLocation.get(id)[2];
+                if (type == TYPE_JUNCTIONBOX) {
+                    btns.setBackgroundResource(R.drawable.junction_box_selected);
+                }
+                if (type == TYPE_POWERSOURCE) {
+                    btns.setBackgroundResource(R.drawable.power_source_selected);
+                }
+                if (type == TYPE_KEY) {
+                    btns.setBackgroundResource(R.drawable.key_selected);
+                }
+            }
+        }
     }
 
-    private void unselectButtons() {
+    private void unSelectButtons() {
+        for (Button btns : buttons) {
+            int id = btns.getId();
+            float type = vLocation.get(id)[2];
+            if (type == TYPE_JUNCTIONBOX) {
+                btns.setBackgroundResource(R.drawable.junction_box);
+            }
+            if (type == TYPE_POWERSOURCE) {
+                btns.setBackgroundResource(R.drawable.power_source);
+            }
+            if (type == TYPE_KEY) {
+                btns.setBackgroundResource(R.drawable.key);
+            }
+        }
+
 
     }
 
