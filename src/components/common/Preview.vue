@@ -1,7 +1,7 @@
 <template>
-<div>
+  <div id="preview-container">
 
-</div>
+  </div>
 </template>
 
 <script>

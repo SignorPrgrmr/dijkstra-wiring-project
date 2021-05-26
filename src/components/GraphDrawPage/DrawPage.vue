@@ -5,6 +5,9 @@
     <draw-box ref="Graph"></draw-box>
   </div>
 
+
+  <div id="drawPage-backdrop"></div> <!-- close preview when clicked on -->
+
 </template>
 
 <script>
@@ -25,6 +28,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component on ly -->
 <style scoped lang="scss">
+@import "./../../../public/-variables";
+
 #page-container {
   height: 100%;
   display: grid;
@@ -34,5 +39,9 @@ export default {
   grid-template-rows: 80px auto;
   grid-template-columns: 15% 85%;
 
+}
+
+#drawPage-backdrop {
+  @include backdrop;
 }
 </style>
