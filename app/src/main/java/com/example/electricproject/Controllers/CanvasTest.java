@@ -265,7 +265,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         builder.setMessage("Draw A Line Between " + firstElement + " And " + secondElement + "?")
                 .setCancelable(false)
                 .setPositiveButton("yes", (dialog, which) -> {
-                    drawLine(value[0]);
+                    drawEdge(value[0]);
                     selected = false;
                     unSelectButtons();
                     connected.add(new int[]{linePointsId[0], linePointsId[1], value[0]});
@@ -441,7 +441,9 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         // -_-
         float angle = (float) Math.toDegrees(Math.atan(absY/absX));
         RelativeLayout.LayoutParams lp_iv = new RelativeLayout.LayoutParams(lineLength, 5);
-        RelativeLayout.LayoutParams lp_tw = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams lp_tw = new
+                RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
         iv.setX((float) (Math.min(x1,x2)-(lineLength-absX)/2));
         iv.setY((float) (Math.min(y1,y2)+(absY /2)));
         tw.setX((float) (Math.min(x1,x2)+(absX /2)));
