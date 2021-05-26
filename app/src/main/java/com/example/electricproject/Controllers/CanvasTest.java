@@ -23,6 +23,8 @@ import android.widget.TextView;
 import com.example.electricproject.Interfaces.ICanvasTest;
 import com.example.electricproject.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -59,6 +61,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canvas_test);
+        snack(findViewById(R.id.layout_main), "Click On " + getEmoji(0x1F58A) + "To Choose Elements");
 //====================================================Start of Initialize All Stuff==============//
         btnSubmit = findViewById(R.id.btn_submit);
         twTest = findViewById(R.id.tw_test);
@@ -95,23 +98,36 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         });
         fabJunctionBox.setOnClickListener((v) -> {
             if (!flagFabJunctionBox) {
+                snack(v, "Choosing Junction Box" + getEmoji(0x1F9F0));
                 chooseOneFab(JUNCTIONBOX);
+                unSelectButtons();
+                btnTmp = null;
+                selected = false;
             }
 
         });
         fabKey.setOnClickListener((v) -> {
             if (!flagFabKey) {
+                snack(v, "Choosing Key" + getEmoji(0x1F5DD));
                 chooseOneFab(KEY);
+                unSelectButtons();
+                btnTmp = null;
+                selected = false;
             }
 
         });
         fabPowerSource.setOnClickListener((v) -> {
             if (!flagFabPowerSource) {
+                snack(v, "Choosing Power Source" + getEmoji(0x1F50B));
                 chooseOneFab(POWERSOURCE);
+                unSelectButtons();
+                btnTmp = null;
+                selected = false;
             }
         });
         fabLine.setOnClickListener((v) -> {
             if (!flagFabLine) {
+                snack(v, "Draw Line Between Elements"+getEmoji(0x2195));
                 chooseOneFab(LINE);
             }
         });
@@ -393,4 +409,10 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private String getEmoji(int unicode) {
         return new String(Character.toChars(unicode));
     }
+
+    private void snack(View v, String message) {
+        Snackbar.make(v, message, Snackbar.LENGTH_LONG).show();
+    }
+
+
 }
