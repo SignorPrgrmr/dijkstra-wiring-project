@@ -422,5 +422,43 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         snack.show();
     }
 
+    @SuppressLint("SetTextI18n")
+    private void drawEdge(int weight){
+        x1 = vLocation.get(linePointsId[0])[0];
+        y1 = vLocation.get(linePointsId[0])[1];
+        x2 = vLocation.get(linePointsId[1])[0];
+        y2 = vLocation.get(linePointsId[1])[1];
+        relativeLayout = findViewById(R.id.relative_layout);
+        //imageview for edge
+        ImageView iv = new ImageView(this);
+        //textview for weight
+        TextView tw = new TextView(this);
+        int x = (int)(x2-x1);
+        int y = (int)(y2-y1);
+        double absX = Math.abs(x);
+        double absY = Math.abs(y);
+        int lineLength = (int)Math.sqrt(Math.pow(absX,2)+Math.pow(absY,2));
+        // -_-
+        float angle = (float) Math.toDegrees(Math.atan(absY/absX));
+        RelativeLayout.LayoutParams lp_iv = new RelativeLayout.LayoutParams(lineLength, 5);
+        RelativeLayout.LayoutParams lp_tw = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        iv.setX((float) (Math.min(x1,x2)-(lineLength-absX)/2));
+        iv.setY((float) (Math.min(y1,y2)+(absY /2)));
+        tw.setX((float) (Math.min(x1,x2)+(absX /2)));
+        tw.setY((float) (Math.min(y1,y2)+(absY /2)-100));
+        iv.setLayoutParams(lp_iv);
+        tw.setLayoutParams(lp_tw);
+        tw.setText(""+weight);
+        tw.setTextSize(20);
+        if(x*y >=0){
+            iv.setBackgroundResource(R.drawable.line);
+            iv.setRotation(angle);
 
+        }else {
+            iv.setBackgroundResource(R.drawable.line);
+            iv.setRotation(-1*angle);
+        }
+        relativeLayout.addView(iv);
+        relativeLayout.addView(tw);
+    }
 }
