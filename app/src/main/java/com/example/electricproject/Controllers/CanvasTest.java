@@ -321,41 +321,6 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         }
     }
 
-    //=========================================Start of Draw Line=============//
-    @SuppressLint("SetTextI18n")
-    private void drawLine(int weight) {
-        x1 = vLocation.get(linePointsId[0])[0];
-        y1 = vLocation.get(linePointsId[0])[1];
-        x2 = vLocation.get(linePointsId[1])[0];
-        y2 = vLocation.get(linePointsId[1])[1];
-        relativeLayout = findViewById(R.id.relative_layout);
-        //imageview for edge
-        ImageView iv = new ImageView(this);
-        //textview for weight
-        TextView tw = new TextView(this);
-        int x = (int) (x2 - x1);
-        int y = (int) (y2 - y1);
-        int width = Math.abs(x);
-        int height = Math.abs(y);
-        RelativeLayout.LayoutParams lp_iv = new RelativeLayout.LayoutParams(width, height);
-        RelativeLayout.LayoutParams lp_tw = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        iv.setX(Math.min(x1, x2));
-        iv.setY(Math.min(y1, y2));
-        tw.setX(Math.min(x1, x2) + (width / 2));
-        tw.setY(Math.min(y1, y2) + (height / 2) - 100);
-        iv.setLayoutParams(lp_iv);
-        tw.setLayoutParams(lp_tw);
-        tw.setText("" + weight);
-        tw.setTextSize(20);
-        if (x * y >= 0) {
-            iv.setBackgroundResource(R.drawable.ic_left_diagonal);
-        } else {
-            iv.setBackgroundResource(R.drawable.ic_right_diagonal);
-        }
-        relativeLayout.addView(iv);
-        relativeLayout.addView(tw);
-    }
-//================================================End of Draw Line=======//
 
     private void selectButton(Button btn) {
         selected = true;
