@@ -27,12 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        btnCanvas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), CanvasTest.class);
-                startActivity(intent);
-            }
+        btnCanvas.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), CanvasTest.class);
+            startActivity(intent);
         });
     }
 }
