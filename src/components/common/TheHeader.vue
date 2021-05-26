@@ -3,7 +3,7 @@
     <ul>
       <li><a @click="()=>$router.push('/')">Home</a></li>
       <li><a @click="Clear">{{ page }}</a></li>
-      <li><a href="#">Finish</a></li>
+      <li><a @click="ShowPreview">Finish</a></li>
     </ul>
 
   </div>
@@ -22,6 +22,14 @@ export default {
       }
       else{
         this.$emit('ClearGraph')
+      }
+    },
+    ShowPreview(){
+      if(this.page == 'Clear Image'){
+        this.$emit('PreviewImageGraph')
+      }
+      else{
+        this.$emit('PreviewGraph')
       }
     }
   },
@@ -63,6 +71,7 @@ li {
   margin: 20px 20px;
   border-radius: 10px;
   font-size: 16pt;
+  cursor: pointer;
 }
 
 li:hover {

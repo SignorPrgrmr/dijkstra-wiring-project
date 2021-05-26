@@ -8,7 +8,6 @@
       <img :src="imgSrc" id="preview">
     </div>
 
-
   </div>
 </template>
 
@@ -31,6 +30,10 @@ export default {
     },
     DeleteImage(){
       this.imgSrc = require("@/assets/undraw_Add_files_re_v09g.svg")
+    },
+    GetImageGraphFromBack(){
+      //send image and get graph
+      this.$emit('makeGraph' , 'Graph')
     }
   },
 };
@@ -76,10 +79,12 @@ img {
   border-radius: 35px;
   box-shadow: 5px 7px rgba(39, 38, 38, 0.041);
 }
-
 div.pic {
   height: 60vh;
   display: flex;
   justify-content: center;
   align-items: center;
-}</style>
+}
+
+
+</style>
