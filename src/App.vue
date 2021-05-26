@@ -1,5 +1,5 @@
 <template>
-  <draw-page></draw-page>
+  <router-view></router-view>
 </template>
 
 <style lang="scss">
@@ -10,9 +10,7 @@ body {
 }
 </style>
 <script>
-
-import DrawPage from "./components/GraphDrawPage/DrawPage";
 export default {
-  components: {DrawPage}
+  components: {}
 }
 </script>

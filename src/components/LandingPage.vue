@@ -2,8 +2,8 @@
 <div>
   <div class="page">
     <div class="buttons">
-      <button  class="upload">Upload Image</button>
-      <button class="draw">Draw Graph</button>
+      <button  class="upload" @click="()=>$router.push('/Image')">Upload Image</button>
+      <button class="draw" @click="()=>$router.push('/Draw')">Draw Graph</button>
     </div>
 
   </div>
