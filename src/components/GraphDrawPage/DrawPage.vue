@@ -1,8 +1,8 @@
 <template>
   <div id="page-container">
-    <the-header></the-header>
+    <the-header page="Clear Graph" @ClearGraph="deleteGraph"></the-header>
     <tool-bar></tool-bar>
-    <draw-box></draw-box>
+    <draw-box ref="Graph"></draw-box>
   </div>
 
 </template>
@@ -14,9 +14,12 @@ import DrawBox from "./DrawBox";
 export default {
   name: 'DrawPage',
   components: {DrawBox, ToolBar, TheHeader},
-  props: {
-    msg: String
+  methods:{
+    deleteGraph(){
+      this.$refs.Grapg.DeleteGraph()
+    },
   }
+
 }
 </script>
 

@@ -1,8 +1,8 @@
 <template>
   <div id="header-container">
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">ClearAll</a></li>
+      <li><a @click="()=>$router.push('/')">Home</a></li>
+      <li><a @click="Clear">{{ page }}</a></li>
       <li><a href="#">Finish</a></li>
     </ul>
 
@@ -10,11 +10,20 @@
 </template>
 
 <script >
-
 export default {
   name: 'TheHeader',
-  props: {
-
+  props: [
+      'page'
+  ],
+  methods:{
+    Clear(){
+      if(this.page == 'Clear Image'){
+        this.$emit('ClearImage')
+      }
+      else{
+        this.$emit('ClearGraph')
+      }
+    }
   },
 };
 </script>

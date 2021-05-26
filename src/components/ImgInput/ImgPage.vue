@@ -1,7 +1,7 @@
 <template>
   <div id="imgPage-container">
-    <the-header></the-header>
-    <input-img></input-img>
+    <the-header page="Clear Image" @ClearImage="deleteImage" @ClearGraph="deleteGraph"></the-header>
+    <input-img ref="Image"></input-img>
   </div>
 
 </template>
@@ -12,10 +12,13 @@ import InputImg from "./ImgInput";
 export default {
   name: 'ImgPage',
   components: {InputImg, TheHeader},
-  props: {
-    msg: String
+  methods:{
+    deleteImage(){
+      this.$refs.Image.DeleteImage()
+    },
   }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -4,8 +4,6 @@
       <input type="file" id="fileUpload" v-on:change="loadFile" hidden accept="image/png, image/jpeg">
       <label for="fileUpload">Upload Image</label>
     </form>
-
-
     <div class="container pic">
       <img :src="imgSrc" id="preview">
     </div>
@@ -30,8 +28,10 @@ export default {
     loadFile(event){
       let src=URL.createObjectURL(event.target.files[0]);
       this.imgSrc = src
-
     },
+    DeleteImage(){
+      this.imgSrc = require("@/assets/undraw_Add_files_re_v09g.svg")
+    }
   },
 };
 </script>

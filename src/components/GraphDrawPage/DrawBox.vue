@@ -5,8 +5,10 @@
 <script>
 export default {
   name: 'DrawBox',
-  props: {
-    msg: String
+  methods:{
+    DeleteGraph(){
+      // delete graph
+    }
   }
 }
 </script>
