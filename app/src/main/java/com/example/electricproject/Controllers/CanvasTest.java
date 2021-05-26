@@ -7,11 +7,14 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,9 +46,10 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private boolean flagFabPowerSource;
     private boolean flagFabJunctionBox;
     private boolean flagFabLine;
-
-    private float x1,y1,x2,y2;
-    private int[] linePointsId ={0,1};
+    private float x1, y1, x2, y2;
+    private int[] linePointsId = {0, 1};
+    private Button btnTmp;
+    private boolean selected;
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
@@ -136,10 +140,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             return true;
         });
 //==============================================================End of Canvas==========//
-
-
     }
-//=======================================================Start of Create Button======//
+    //=======================================================Start of Create Button======//
     @SuppressLint("SetTextI18n")
     private void createBtn() {
         relativeLayout = findViewById(R.id.relative_layout);
@@ -170,25 +172,42 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             int id = btn.getId();
             twTest.setText(
                     "btn id : " + id
-                    + " x : " + vLocation.get(id)[0]
-                    + " y : " + vLocation.get(id)[1]
-                    + " type: " + vLocation.get(id)[2]
+                            + " x : " + vLocation.get(id)[0]
+                            + " y : " + vLocation.get(id)[1]
+                            + " type: " + vLocation.get(id)[2]
             );
+            if (flagFabLine) {
+                if (selected) {
+                    if (btn.getId() != btnTmp.getId()) {
+                        linePointsId[1] = btn.getId();
+                        alertPutLine(btn);
+                    }
+                } else {
+                    btnTmp = btn;
+                    selectButton(btnTmp);
+                    linePointsId[0] = btnTmp.getId();
+                }
+
+            }
         });
+
     }
 //========================================================End of Create Button======//
 
-//=====================================================Start of Alerts=======//
+    //=====================================================Start of Alerts=======//
     private void alertJunctionBox() {
         alertPutButton(JUNCTIONBOX);
     }
+
     private void alertPowerSource() {
         alertPutButton(POWERSOURCE);
 
     }
+
     private void alertKey() {
         alertPutButton(KEY);
     }
+
     private void alertPutButton(String element) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Put A " + element + "?")
@@ -208,7 +227,46 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         alert.setTitle("Put Element Down");
         alert.show();
     }
-//=======================================================End of Alerts======//
+
+    private void alertPutLine(Button currentBtn) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String firstElement = findType(vLocation.get(btnTmp.getId())[2]);
+        String secondElement = findType(vLocation.get(currentBtn.getId())[2]);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.nubmer_picker, null);
+        builder.setView(dialogView);
+        final NumberPicker numberPicker = (NumberPicker) dialogView.findViewById(R.id.dialog_number_picker);
+        int[] value = {0};
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(100);
+        numberPicker.setWrapSelectorWheel(true);
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                value[0] = numberPicker.getValue();
+            }
+        });
+        builder.setMessage("Draw A Line Between " + firstElement + " And " + secondElement + "?")
+                .setCancelable(false)
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        drawLine(value[0]);
+                        selected = false;
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.setTitle("Now I Gotta Draw A Line " + getEmoji(0x1F440));
+        alert.show();
+    }
+
+
+    //=======================================================End of Alerts======//
     private void chooseOneFab(String chosen) {
         if (chosen.equals(JUNCTIONBOX)) {
             flagFabJunctionBox = true;
@@ -253,12 +311,14 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         }
     }
 
-    private void clickOnButtons() {
+    private void clickOnButtons(Button btn) {
+
 
     }
-//=========================================Start of Draw Line=============//
+
+    //=========================================Start of Draw Line=============//
     @SuppressLint("SetTextI18n")
-    private void drawLine(int weight){
+    private void drawLine(int weight) {
         x1 = vLocation.get(linePointsId[0])[0];
         y1 = vLocation.get(linePointsId[0])[1];
         x2 = vLocation.get(linePointsId[1])[0];
@@ -268,27 +328,55 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         ImageView iv = new ImageView(this);
         //textview for weight
         TextView tw = new TextView(this);
-        int x = (int)(x2-x1);
-        int y = (int)(y2-y1);
+        int x = (int) (x2 - x1);
+        int y = (int) (y2 - y1);
         int width = Math.abs(x);
         int height = Math.abs(y);
         RelativeLayout.LayoutParams lp_iv = new RelativeLayout.LayoutParams(width, height);
         RelativeLayout.LayoutParams lp_tw = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        iv.setX(Math.min(x1,x2));
-        iv.setY(Math.min(y1,y2));
-        tw.setX(Math.min(x1,x2)+(width/2));
-        tw.setY(Math.min(y1,y2)+(height/2)-100);
+        iv.setX(Math.min(x1, x2));
+        iv.setY(Math.min(y1, y2));
+        tw.setX(Math.min(x1, x2) + (width / 2));
+        tw.setY(Math.min(y1, y2) + (height / 2) - 100);
         iv.setLayoutParams(lp_iv);
         tw.setLayoutParams(lp_tw);
-        tw.setText(""+weight);
+        tw.setText("" + weight);
         tw.setTextSize(20);
-        if(x*y >=0){
+        if (x * y >= 0) {
             iv.setBackgroundResource(R.drawable.ic_left_diagonal);
-        }else {
+        } else {
             iv.setBackgroundResource(R.drawable.ic_right_diagonal);
         }
         relativeLayout.addView(iv);
         relativeLayout.addView(tw);
     }
 //================================================End of Draw Line=======//
+
+    private void selectButton(Button btn) {
+        selected = true;
+        //make every bitch selectable;
+    }
+
+    private void unselectButtons() {
+
+    }
+
+    private String findType(float type) {
+
+        if (type == TYPE_JUNCTIONBOX) {
+            return JUNCTIONBOX;
+        }
+        if (type == TYPE_KEY) {
+            return KEY;
+        }
+        if (type == TYPE_POWERSOURCE) {
+            return POWERSOURCE;
+        }
+        return null;
+    }
+
+    private String getEmoji(int unicode) {
+        return new String(Character.toChars(unicode));
+    }
+
 }
