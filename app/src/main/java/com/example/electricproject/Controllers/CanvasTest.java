@@ -34,6 +34,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private float y;
     private int verticesCount;
     private ArrayList<float[]> vLocation;
+    private ArrayList<int[]> connected;
     private ArrayList<Button> buttons;
     private FloatingActionButton fabDraw;
     private LinearLayout layoutFabs;
@@ -72,6 +73,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         fabLine = findViewById(R.id.fab_line);
         buttons = new ArrayList<>();
         vLocation = new ArrayList<>();
+        connected = new ArrayList<>();
         flagFabKey = false;
         flagFabPowerSource = false;
         flagFabJunctionBox = false;
@@ -222,17 +224,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Put A " + element + "?")
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        createBtn();
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+                .setPositiveButton("Yes", (dialog, which) -> createBtn()).
+                setNegativeButton("No", (dialog, which) -> dialog.cancel());
         AlertDialog alert = builder.create();
         alert.setTitle("Put Element Down" + emoji);
         alert.show();
@@ -245,32 +238,20 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.nubmer_picker, null);
         builder.setView(dialogView);
-        final NumberPicker numberPicker = (NumberPicker) dialogView.findViewById(R.id.dialog_number_picker);
+        final NumberPicker numberPicker = dialogView.findViewById(R.id.dialog_number_picker);
         int[] value = {0};
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(100);
         numberPicker.setWrapSelectorWheel(true);
-        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                value[0] = numberPicker.getValue();
-            }
-        });
+        numberPicker.setOnValueChangedListener((picker, oldVal, newVal) -> value[0] = numberPicker.getValue());
         builder.setMessage("Draw A Line Between " + firstElement + " And " + secondElement + "?")
                 .setCancelable(false)
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        drawLine(value[0]);
-                        selected = false;
-                        unSelectButtons();
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+                .setPositiveButton("yes", (dialog, which) -> {
+                    drawLine(value[0]);
+                    selected = false;
+                    unSelectButtons();
+                    connected.add(new int[]{linePointsId[0], linePointsId[1], value[0]});
+                }).setNegativeButton("No", (dialog, which) -> dialog.cancel());
         AlertDialog alert = builder.create();
         alert.setTitle("Now I Gotta Draw A Line " + getEmoji(0x1F440) + getEmoji(0x1F3B6));
         alert.show();
@@ -320,11 +301,6 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             fabKey.getBackground().setAlpha(255);
             fabJunctionBox.getBackground().setAlpha(255);
         }
-    }
-
-    private void clickOnButtons(Button btn) {
-
-
     }
 
     //=========================================Start of Draw Line=============//
@@ -417,5 +393,4 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private String getEmoji(int unicode) {
         return new String(Character.toChars(unicode));
     }
-
 }
