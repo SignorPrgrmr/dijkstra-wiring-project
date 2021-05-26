@@ -21,7 +21,7 @@ export default {
   margin: 0;
   padding: 0;
   position: relative;
-  left: 100px; //determines the position of the Node on the parent div.
+  left: 300px; //determines the position of the Node on the parent div.
   top: 100px; //determines the position of the Node on the parent div.
 
   .node-name {
