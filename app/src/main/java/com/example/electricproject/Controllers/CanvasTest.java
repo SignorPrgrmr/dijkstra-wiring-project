@@ -10,10 +10,12 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
@@ -411,7 +413,13 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     }
 
     private void snack(View v, String message) {
-        Snackbar.make(v, message, Snackbar.LENGTH_LONG).show();
+        //Snackbar.make(v, message, Snackbar.LENGTH_LONG).show();
+        Snackbar snack = Snackbar.make(v, message, Snackbar.LENGTH_LONG);
+        View view = snack.getView();
+        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+        params.gravity = Gravity.TOP;
+        view.setLayoutParams(params);
+        snack.show();
     }
 
 
