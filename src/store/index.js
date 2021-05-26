@@ -11,5 +11,8 @@ export default createStore({
     modules: {
     },
     getters: {
+        getServerUrl(state) {
+            return state.serverUrl;
+        },
     }
 })

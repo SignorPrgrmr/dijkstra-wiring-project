@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form action="">
+    <form action="" ref="Imageform">
       <input type="file" id="fileUpload" v-on:change="loadFile" hidden accept="image/png, image/jpeg">
       <label for="fileUpload">Upload Image</label>
     </form>
@@ -12,6 +12,7 @@
 </template>
 
 <script >
+import { mapGetters } from "vuex";
 
 export default {
   name: 'InputImg',
@@ -23,6 +24,9 @@ export default {
       imgSrc: require("@/assets/undraw_Add_files_re_v09g.svg")
     }
   },
+  computed: {
+    ...mapGetters(['getServerUrl'])
+  },
   methods:{
     loadFile(event){
       let src=URL.createObjectURL(event.target.files[0]);
@@ -32,8 +36,17 @@ export default {
       this.imgSrc = require("@/assets/undraw_Add_files_re_v09g.svg")
     },
     GetImageGraphFromBack(){
+      const ImageFormData = new FormData(this.$refs.Imageform)
+      fetch(this.getServerUrl + "/api/image", {
+        method: "POST",
+        body: ImageFormData
+      }).then(response =>{
+        if (response.ok){
+          console.log(response.json())
+        }
+      })
       //send image and get graph
-      this.$emit('makeGraph' , 'Graph')
+      // this.$emit('makeGraph' , 'Graph')
     }
   },
 };
