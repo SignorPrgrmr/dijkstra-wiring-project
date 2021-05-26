@@ -256,7 +256,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private void clickOnButtons() {
 
     }
-
+//=========================================Start of Draw Line=============//
     @SuppressLint("SetTextI18n")
     private void drawLine(int weight){
         x1 = vLocation.get(linePointsId[0])[0];
@@ -290,5 +290,5 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         relativeLayout.addView(iv);
         relativeLayout.addView(tw);
     }
-
+//================================================End of Draw Line=======//
 }
