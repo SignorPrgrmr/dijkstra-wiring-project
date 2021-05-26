@@ -26,16 +26,22 @@ export default {
   height: 100%;
   display: flex;
   flex-flow: column;
-  background: $toolbar-color;
+  background: $color-toolbar;
 
 
   .toolbar-button {
     height: 80px;
-    background: $toolbar-color;
+    width: 100%;
+    margin: 0;
+    background: $color-toolbar;
     border: none;
+    border-radius: 0;
+    font-size: 12pt;
+    text-align: left;
+    padding-left: 16px;
   }
   .toolbar-button:hover {
-    background: darken($toolbar-color,10%);
+    background: darken($color-toolbar,10%);
   }
 }
 </style>

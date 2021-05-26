@@ -1,9 +1,9 @@
 <template>
   <div id="header-container">
-    <ul>
-      <li><a @click="()=>$router.push('/')">Home</a></li>
-      <li><a @click="Clear">{{ page }}</a></li>
-      <li><a @click="ShowPreview">Finish</a></li>
+    <ul id="header-list">
+      <li class="list-item"><a @click="()=>$router.push('/')">Home</a></li>
+      <li class="list-item"><a @click="Clear">{{ page }}</a></li>
+      <li class="list-item"><a @click="ShowPreview">Finish</a></li>
     </ul>
 
   </div>
@@ -37,8 +37,10 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style >
-#header-container{
+<style lang="scss">
+@import "./../../../public/-variables";
+
+#header-container {
   grid-area: header;
   width: 100%;
   max-height: 80px;
@@ -47,38 +49,38 @@ export default {
   flex-flow: nowrap row;
   justify-content: left;
   align-items: center;
-  background: #6C757D;
-}
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-flow: nowrap row;
-  /*width: 100%;*/
+  background: $color-primary;
+
+  #header-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: nowrap row;
+
+    .list-item {
+      display: inline;
+      margin: 8px;
+      border-radius: 10px;
+      font-size: 16pt;
+      cursor: pointer;
+      padding: 0;
+
+      a {
+        font-family: sans-serif;
+        text-decoration: none;
+        color: $color-text;
+        padding: 8px 16px;
+        border-radius: 10px;
+      }
+      a:hover {
+        color: $color-primary;
+        background-color: $color-text;
+      }
+    }
+
+  }
 }
 
-a {
-  font-family: sans-serif;
-  text-decoration: none;
-  color: aliceblue;
-  padding: 5px 5px;
-  border-radius: 10px;
-}
 
-li {
-  display: inline;
-  margin: 20px 20px;
-  border-radius: 10px;
-  font-size: 16pt;
-  cursor: pointer;
-}
-
-li:hover {
-  background-color: aliceblue;
-}
-
-a:hover {
-  color: rgba(108, 117, 125, 1);
-  background-color: aliceblue;
-}</style>
+</style>

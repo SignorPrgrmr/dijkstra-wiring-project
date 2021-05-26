@@ -1,5 +1,5 @@
 <template>
-  <div id="box-container">draw box</div>
+  <div id="box-container"></div>
 </template>
 
 <script>
@@ -19,7 +19,6 @@ export default {
   grid-area: drawbox;
   width: 100%;
   height: 100%;
-  background: red;
 
 }
 </style>

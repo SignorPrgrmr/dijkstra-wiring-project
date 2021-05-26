@@ -1,2 +1,14 @@
-$primary-color: #6C757D;
-$toolbar-color: #CED4DA;
+$color-primary: #6C757D;
+$color-toolbar: #CED4DA;
+$color-text: #f0f8ff;
+
+@mixin backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000000;
+  opacity: 20%;
+  z-index: 2;
+}
