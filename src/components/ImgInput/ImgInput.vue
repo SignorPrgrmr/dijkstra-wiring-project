@@ -2,7 +2,7 @@
   <div>
     <form action="" ref="Imageform">
       <input type="file" id="fileUpload" v-on:change="loadFile" hidden accept="image/png, image/jpeg">
-      <label for="fileUpload">Upload Image</label>
+      <label id="fileUpload-label" for="fileUpload">Upload Image</label>
     </form>
     <div class="container pic">
       <img :src="imgSrc" id="preview">
@@ -61,7 +61,7 @@ form {
   align-items: center;
 }
 
-label {
+#fileUpload-label {
   text-align: center;
   font-size: 20px;
   border: 0px;
@@ -79,7 +79,7 @@ label {
 
 }
 
-label:hover {
+#fileUpload-label:hover {
   box-shadow: 5px 7px rgba(0, 0, 0, 0.05);
 }
 

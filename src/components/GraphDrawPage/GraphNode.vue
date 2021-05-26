@@ -20,7 +20,7 @@ export default {
   border-radius: 50%;
   margin: 0;
   padding: 0;
-  position: absolute;
+  position: relative;
   left: 100px; //determines the position of the Node on the parent div.
   top: 100px; //determines the position of the Node on the parent div.
 
@@ -32,6 +32,9 @@ export default {
     background: transparent;
     color: white;
     font-size: 8pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
