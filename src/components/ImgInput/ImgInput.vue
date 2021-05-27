@@ -1,7 +1,7 @@
 <template>
   <div>
     <form action="" ref="Imageform">
-      <input type="file" id="fileUpload" v-on:change="loadFile" hidden accept="image/png, image/jpeg">
+      <input name="image" type="file" id="fileUpload" v-on:change="loadFile" hidden accept="image/png, image/jpeg">
       <label for="fileUpload">Upload Image</label>
     </form>
     <div class="container pic">
@@ -45,7 +45,6 @@ export default {
           console.log(response.json())
         }
       })
-      //send image and get graph
       // this.$emit('makeGraph' , 'Graph')
     }
   },
