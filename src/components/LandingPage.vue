@@ -2,8 +2,8 @@
 <div>
   <div class="page">
     <div class="buttons">
-      <button  class="upload" @click="()=>$router.push('/Image')">Upload Image</button>
-      <button class="draw" @click="()=>$router.push('/Draw')">Draw Graph</button>
+      <button  class="landing-btn" @click="()=>$router.push('/Image')">Upload Image</button>
+      <button class="landing-btn" @click="()=>$router.push('/Draw')">Draw Graph</button>
     </div>
 
   </div>
@@ -28,7 +28,7 @@ div.page{
 }
 
 
-button{
+.landing-btn{
   width: 300px;
   height: 95px;
   margin: 30px;
@@ -39,7 +39,7 @@ button{
   font-size: 24pt;
 }
 
-button:hover{
+.landing-btn:hover{
   background-color:rgba(108, 117, 125, 1) ;
   color:rgba(255, 255, 255, 1);
 }
