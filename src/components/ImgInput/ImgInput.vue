@@ -42,11 +42,10 @@ export default {
         body: ImageFormData
       }).then(response =>{
         if (response.ok){
-          console.log(response.json())
+          const GraphImageObj = response.json()
+          this.$emit('makeGraph' , GraphImageObj)
         }
       })
-      //send image and get graph
-      // this.$emit('makeGraph' , 'Graph')
     }
   },
 };
