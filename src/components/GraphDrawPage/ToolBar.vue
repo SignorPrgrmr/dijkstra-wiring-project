@@ -1,8 +1,8 @@
 <template>
   <div id="toolbar-container">
-    <button class="toolbar-button">Power Source</button>
-    <button class="toolbar-button">Junction Box</button>
-    <button class="toolbar-button">Switch</button>
+    <button class="toolbar-button" @click="changeNode('node-power-source')">Power Source</button>
+    <button class="toolbar-button" @click="changeNode('node-junction-box')">Junction Box</button>
+    <button class="toolbar-button" @click="changeNode('node-switch')">Switch</button>
     <button class="toolbar-button">Wire</button>
   </div>
 </template>
@@ -10,8 +10,10 @@
 <script>
 export default {
   name: 'ToolBar',
-  props: {
-    msg: String
+  methods:{
+    changeNode(mode){
+      this.$emit('ChangeNode' , mode)
+    }
   }
 }
 </script>

@@ -1,12 +1,25 @@
 <template>
-  <div class="node-container">
-    <label class="node-name">S1</label>
+  <div class="node-container" v-bind:style="position" >
+    <label class="node-name" >{{ text }}</label>
   </div>
 </template>
 
 <script>
 export default {
-  name: "GraphNode"
+  name: "GraphNode",
+  data(){
+    return{
+      text : "",
+      position : 'left:0px,top:0px'
+    }
+  },
+  methods:{
+    set(x,y,txt){
+      this.position = `left:${x}px;top:${y}px`
+      this.text = txt
+      console.log(this.position)
+    }
+  }
 }
 </script>
 
@@ -21,8 +34,8 @@ export default {
   margin: 0;
   padding: 0;
   position: relative;
-  left: 300px; //determines the position of the Node on the parent div.
-  top: 100px; //determines the position of the Node on the parent div.
+  //left: 100%; //determines the position of the Node on the parent div.
+  //top: 100%; //determines the position of the Node on the parent div.
 
   .node-name {
     width: 100%;

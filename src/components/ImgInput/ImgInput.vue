@@ -16,9 +16,6 @@ import { mapGetters } from "vuex";
 
 export default {
   name: 'InputImg',
-  props: {
-
-  },
   data(){
     return{
       imgSrc: require("@/assets/undraw_Add_files_re_v09g.svg")

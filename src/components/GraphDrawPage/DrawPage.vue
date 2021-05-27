@@ -1,7 +1,7 @@
 <template>
   <div id="page-container">
     <the-header page="Clear Graph" @ClearGraph="deleteGraph"></the-header>
-    <tool-bar></tool-bar>
+    <tool-bar @changeNode="ChangeNode"></tool-bar>
     <draw-box ref="Graph"></draw-box>
   </div>
 
@@ -18,10 +18,18 @@ import DrawBox from "./DrawBox";
 export default {
   name: 'DrawPage',
   components: { DrawBox, ToolBar, TheHeader},
+  data(){
+    return{
+      positions : {}
+    }
+  },
   methods:{
     deleteGraph(){
       this.$refs.Grapg.DeleteGraph()
     },
+    ChangeNode(mode){
+      this.$refs.Graph.ChangeNode(mode)
+    }
   }
 
 }

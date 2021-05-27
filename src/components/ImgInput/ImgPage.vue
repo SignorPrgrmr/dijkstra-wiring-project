@@ -2,10 +2,8 @@
   <div id="imgPage-container">
     <the-header page="Clear Image" @ClearImage="deleteImage" @PreviewImageGraph="PreviewImageGraph"></the-header>
     <input-img ref="Image" @makeGraph="MakeGraph"></input-img>
-    <div class="preview" v-show="Preview" @click="hidePreview"></div>
-    <div class="inner" >
-      <preview ref="PreviewPage" ></preview>
-    </div>
+    <div class="preview" v-show="Preview" @click="Preview = false"></div>
+    <preview ref="PreviewPage" v-show="Preview" ></preview>
   </div>
 
 </template>
@@ -19,7 +17,7 @@ export default {
   components: {Preview, InputImg, TheHeader},
   data(){
     return{
-      Preview : false,
+      Preview : true,
     }
   },
   methods:{
@@ -35,9 +33,6 @@ export default {
     //  draw graph in preview and show image out out in preview
       console.log(graph)
     },
-    hidePreview(){
-      this.Preview = false
-    }
   }
 }
 
