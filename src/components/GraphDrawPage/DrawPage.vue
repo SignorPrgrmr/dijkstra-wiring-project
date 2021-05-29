@@ -5,7 +5,7 @@
     <draw-box ref="Graph"></draw-box>
   </div>
 
-  <preview></preview>
+<!--  <preview></preview>-->
   <div id="drawPage-backdrop"></div> <!-- close preview when clicked on -->
 
 </template>
@@ -14,10 +14,9 @@
 import TheHeader from "../common/TheHeader";
 import ToolBar from "./ToolBar";
 import DrawBox from "./DrawBox";
-import Preview from "@/components/common/Preview";
 export default {
   name: 'DrawPage',
-  components: {Preview, DrawBox, ToolBar, TheHeader},
+  components: { DrawBox, ToolBar, TheHeader},
   data(){
     return{
       positions : {}
@@ -52,6 +51,6 @@ export default {
 
 #drawPage-backdrop {
   @include backdrop;
-  display: block;
+  display: none; // toggle none and block
 }
 </style>

@@ -1,8 +1,10 @@
 <template>
   <div id="box-container">
-    <div id="draw-box" v-on:mousemove="updateXY" @click="Draw"> <!-- this div will contain wires, and the one inside this will have nodes -->
-
+    <div id="draw-box" v-on:mousemove="updateXY" @click="Draw">
+      <!-- this div will contain wires, and the one inside this will have nodes -->
+      so, this has wires in it.
       <div id="node-box">
+        and this one has nodes in it.
         <graph-node v-for="Node in Nodes" :key="Node.text" :x="Node.x" :y="Node.y" :text="Node.text" :class="Node.mode"></graph-node>
         <graph-cursor-node v-bind:class="node" ref="CursorNode"></graph-cursor-node>
       </div>
@@ -92,10 +94,13 @@ export default {
     position: relative;
 
     #node-box {
-      position: relative;
       width: 100%;
       height: 100%;
       background: transparent;
+      border: 1px solid red;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 }
