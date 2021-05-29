@@ -1,27 +1,28 @@
 <template>
   <div id="box-container">
     <div id="draw-box" v-on:mousemove="updateXY" @click="Draw">
-<!--      Nodes will be drawn here!-->
-      <graph-node v-bind:class="cursorNode" ref="graph"></graph-node>
+      <graph-node v-for="Node in Nodes" :key="Node.text" :x="Node.x" :y="Node.y" :text="Node.text" :class="Node.mode"></graph-node>
+      <graph-cursor-node v-bind:class="node" ref="CursorNode"></graph-cursor-node>
     </div>
   </div>
 </template>
 
 <script>
-import GraphNode from "@/components/GraphDrawPage/GraphNode";
+import GraphNode from "./GraphNode";
+import GraphCursorNode from "./GraphCursorNode";
 export default {
   name: 'DrawBox',
-  components: {GraphNode},
+  components: {GraphCursorNode, GraphNode},
   data(){
     return{
       x : 0,
       y : 0,
       p : 1,
-      c : 1,
+      j : 1,
       s : 1,
       text : "",
       node : '',
-      cursorNode : ''
+      Nodes : []
     }
   },
   methods:{
@@ -31,17 +32,32 @@ export default {
     updateXY(event){
       this.x = event.offsetX
       this.y = event.offsetY
-      this.$refs.graph.set(this.x,this.y,this.text)
+      this.$refs.CursorNode.set(this.x,this.y)
     },
     ChangeNode(mode){
       this.node = mode
-      this.cursorNode = `${this.node} node-preview`
     },
     Draw(){
-      // console.log(this.nodeType)
-      // const element = document.createElement('graph-node')
-      // element.setAttribute('class', this.node)
-      // document.getElementById('draw-box').appendChild(element)
+      if(this.node != ""){
+        if(this.node.charAt(5) == 'p'){
+          this.text = `P${this.p}`
+          this.p++
+        }
+        else if(this.node.charAt(5) == 'j'){
+          this.text = `J${this.j}`
+          this.j++
+        }
+        else{
+          this.text = `S${this.s}`
+          this.s++
+        }
+        const newNode = {text : this.text, x : this.x , y : this.y , mode : this.node}
+        this.node = ""
+        this.x = 0
+        this.y = 0
+        this.Nodes.push(newNode)
+      }
+
     }
   }
 }

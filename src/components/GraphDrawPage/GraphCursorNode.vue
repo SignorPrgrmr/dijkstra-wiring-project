@@ -1,22 +1,21 @@
 <template>
   <div class="node-container" v-bind:style="position" >
-    <label class="node-name" >{{ text }}</label>
   </div>
 </template>
 
 <script>
 export default {
-  name: "GraphNode",
+  name: "GraphCursorNode",
   data(){
     return{
-      position : ""
+      position : ''
     }
   },
-  props:['x', 'y' , 'text'],
   methods:{
-    },
-  created() {
-    this.position = `left:${this.x}px;top:${this.y}px`
+    set(x,y){
+      this.position = `left:${x}px;top:${y}px`
+    }
+
   }
 }
 </script>
@@ -35,33 +34,20 @@ export default {
   //left: 100%; //determines the position of the Node on the parent div.
   //top: 100%; //determines the position of the Node on the parent div.
 
-  .node-name {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    color: white;
-    font-size: 8pt;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 }
 
 .node-power-source {
   background: $color-power-source;
+  opacity: 50%;
 }
 
 .node-junction-box {
   background: $color-junction-box;
+  opacity: 50%;
 }
 
 .node-switch {
   background: $color-switch;
-}
-
-.node-preview {
   opacity: 50%;
 }
 </style>
