@@ -4,6 +4,7 @@ $color-text: #f0f8ff;
 $color-power-source: #E5383B;
 $color-junction-box: #3C096C;
 $color-switch: #FF8500;
+$color-button: #014f86;
 
 @mixin backdrop {
   width: 100vw;
@@ -14,4 +15,20 @@ $color-switch: #FF8500;
   background: #000000;
   opacity: 20%;
   z-index: 2;
+}
+@mixin preview-button {
+  width: 100px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  background: $color-button;
+  color: white;
+}
+@mixin preview-box {
+  width: 100%;
+  height: calc(100% - 60px);
+  align-self: flex-start;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }

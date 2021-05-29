@@ -1,13 +1,22 @@
 <template>
   <div id="preview-container">
     <label id="close-preview">&#x2715;</label>
-    <div id="preview-content">
-      <div>
+
+    <div id="graph-content"> <!-- this div will contain wires -->
+      some wires here let's imagine.
+      <div id="preview-nodes"> <!-- this div will have nodes in it -->
         <graph-node class="node-power-source"></graph-node>
       </div>
-<!--      <graph-node class="node-switch"></graph-node>-->
     </div>
-    <button id="save-graph">Save Image</button>
+
+    <div id="image-content"> <!-- this div will have image, and will toggle with "graph-content" -->
+      this div has our image
+    </div>
+
+    <div id="preview-buttons">
+      <button id="toggle-preview">View Photo</button>
+      <button id="save-graph">Save Image</button>
+    </div>
   </div>
 </template>
 
@@ -27,6 +36,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import "./../../../public/-variables";
 
 #preview-container {
 
@@ -58,21 +68,40 @@ export default {
     font-size: 8pt;
   }
   #close-preview:hover {
-    background: red;
+    background: #3b3b3b;
     cursor: pointer;
   }
 
-  #preview-content {
-    width: 100%;
-    height: 80%;
-    border: solid 1px;
-    align-self: flex-start;
-    margin: 8px 0;
+  #graph-content {
+    display: block; // toggle none and block
+
+    @include preview-box;
+
+    #preview-nodes {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      //border: 1px solid red;
+    }
   }
 
-  #save-graph {
-    width: 100px;
-    height: 40px;
+  #image-content {
+    display: none; // toggle block and none;
+
+    @include preview-box;
+  }
+
+  #save-graph,
+  #toggle-preview {
+    @include preview-button;
+    margin-left: 8px;
+  }
+  #save-graph:hover,
+  #toggle-preview:hover {
+    cursor: pointer;
+    background: lighten($color-button,10%);
   }
 }
 </style>

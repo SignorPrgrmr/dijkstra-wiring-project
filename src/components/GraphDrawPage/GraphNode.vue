@@ -31,7 +31,7 @@ export default {
   border-radius: 50%;
   margin: 0;
   padding: 0;
-  position: relative;
+  position: absolute;
   //left: 100%; //determines the position of the Node on the parent div.
   //top: 100%; //determines the position of the Node on the parent div.
 

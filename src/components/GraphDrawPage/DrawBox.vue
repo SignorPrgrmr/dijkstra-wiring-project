@@ -1,15 +1,22 @@
 <template>
   <div id="box-container">
-    <div id="draw-box" v-on:mousemove="updateXY" @click="Draw">
-      <graph-node v-for="Node in Nodes" :key="Node.text" :x="Node.x" :y="Node.y" :text="Node.text" :class="Node.mode"></graph-node>
-      <graph-cursor-node v-bind:class="node" ref="CursorNode"></graph-cursor-node>
+    <div id="draw-box" v-on:mousemove="updateXY" @click="Draw"> <!-- this div will contain wires, and the one inside this will have nodes -->
+
+      <div id="node-box">
+        <graph-node v-for="Node in Nodes" :key="Node.text" :x="Node.x" :y="Node.y" :text="Node.text" :class="Node.mode"></graph-node>
+        <graph-cursor-node v-bind:class="node" ref="CursorNode"></graph-cursor-node>
+      </div>
+
+
+<!--      <graph-node v-for="Node in Nodes" :key="Node.text" :x="Node.x" :y="Node.y" :text="Node.text" :class="Node.mode"></graph-node>-->
+<!--      <graph-cursor-node v-bind:class="node" ref="CursorNode"></graph-cursor-node>-->
     </div>
   </div>
 </template>
 
 <script>
-import GraphNode from "./GraphNode";
-import GraphCursorNode from "./GraphCursorNode";
+import GraphNode from "@/components/GraphDrawPage/GraphNode";
+import GraphCursorNode from "@/components/GraphDrawPage/GraphCursorNode";
 export default {
   name: 'DrawBox',
   components: {GraphCursorNode, GraphNode},
@@ -81,6 +88,15 @@ export default {
     overflow: auto;
     box-shadow: 0 0 10px 3px rgba(0,0,0,0.2);
     border-radius: 8px;
+
+    position: relative;
+
+    #node-box {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
   }
 }
 
