@@ -1,5 +1,6 @@
 package com.example.electricproject.Controllers;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,6 +24,9 @@ import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.electricproject.Classes.GraphNode;
+import com.example.electricproject.Classes.GraphNodeType;
+import com.example.electricproject.Classes.PrimAlgorithm;
 import com.example.electricproject.Interfaces.ICanvasTest;
 import com.example.electricproject.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,6 +45,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private ArrayList<float[]> vLocation;
     private ArrayList<int[]> connected;
     private ArrayList<Button> buttons;
+    private ArrayList<GraphNode> nodes;
     private FloatingActionButton fabDraw;
     private LinearLayout layoutFabs;
     private LinearLayout layoutMain;
@@ -58,6 +64,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private Button btnTmp;
     private boolean selected;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +86,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         buttons = new ArrayList<>();
         vLocation = new ArrayList<>();
         connected = new ArrayList<>();
+        nodes = new ArrayList<>();
         flagFabKey = false;
         flagFabPowerSource = false;
         flagFabJunctionBox = false;
@@ -89,6 +97,10 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
 
         btnSubmit.setOnClickListener((v) -> {
             // make and submit graph
+            //find the power source node and send it to prim class
+            PrimAlgorithm solution = new PrimAlgorithm();
+            GraphNode result = solution.findTheOptimumSolution(makeGraph());
+
         });
 
 
@@ -129,7 +141,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         });
         fabLine.setOnClickListener((v) -> {
             if (!flagFabLine) {
-                snack(v, "Draw Line Between Elements"+getEmoji(0x2195));
+                snack(v, "Draw Line Between Elements" + getEmoji(0x2195));
                 chooseOneFab(LINE);
             }
         });
@@ -381,14 +393,14 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         //Snackbar.make(v, message, Snackbar.LENGTH_LONG).show();
         Snackbar snack = Snackbar.make(v, message, Snackbar.LENGTH_LONG);
         View view = snack.getView();
-        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
         params.gravity = Gravity.TOP;
         view.setLayoutParams(params);
         snack.show();
     }
 
     @SuppressLint("SetTextI18n")
-    private void drawEdge(int weight){
+    private void drawEdge(int weight) {
         x1 = vLocation.get(linePointsId[0])[0];
         y1 = vLocation.get(linePointsId[0])[1];
         x2 = vLocation.get(linePointsId[1])[0];
@@ -398,34 +410,73 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         ImageView iv = new ImageView(this);
         //textview for weight
         TextView tw = new TextView(this);
-        int x = (int)(x2-x1);
-        int y = (int)(y2-y1);
+        int x = (int) (x2 - x1);
+        int y = (int) (y2 - y1);
         double absX = Math.abs(x);
         double absY = Math.abs(y);
-        int lineLength = (int)Math.sqrt(Math.pow(absX,2)+Math.pow(absY,2));
+        int lineLength = (int) Math.sqrt(Math.pow(absX, 2) + Math.pow(absY, 2));
         // -_-
-        float angle = (float) Math.toDegrees(Math.atan(absY/absX));
+        float angle = (float) Math.toDegrees(Math.atan(absY / absX));
         RelativeLayout.LayoutParams lp_iv = new RelativeLayout.LayoutParams(lineLength, 5);
         RelativeLayout.LayoutParams lp_tw = new
                 RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        iv.setX((float) (Math.min(x1,x2)-(lineLength-absX)/2));
-        iv.setY((float) (Math.min(y1,y2)+(absY /2)));
-        tw.setX((float) (Math.min(x1,x2)+(absX /2)));
-        tw.setY((float) (Math.min(y1,y2)+(absY /2)-100));
+        iv.setX((float) (Math.min(x1, x2) - (lineLength - absX) / 2));
+        iv.setY((float) (Math.min(y1, y2) + (absY / 2)));
+        tw.setX((float) (Math.min(x1, x2) + (absX / 2)));
+        tw.setY((float) (Math.min(y1, y2) + (absY / 2) - 100));
         iv.setLayoutParams(lp_iv);
         tw.setLayoutParams(lp_tw);
-        tw.setText(""+weight);
+        tw.setText("" + weight);
         tw.setTextSize(20);
-        if(x*y >=0){
+        if (x * y >= 0) {
             iv.setBackgroundResource(R.drawable.line);
             iv.setRotation(angle);
 
-        }else {
+        } else {
             iv.setBackgroundResource(R.drawable.line);
-            iv.setRotation(-1*angle);
+            iv.setRotation(-1 * angle);
         }
         relativeLayout.addView(iv);
         relativeLayout.addView(tw);
+    }
+
+    private GraphNodeType findGraphNodeType(int index) {
+        float type = vLocation.get(index)[2];
+        if (type == TYPE_JUNCTIONBOX) {
+            return GraphNodeType.JUNCTION_BOX;
+        }
+        if (type == TYPE_KEY) {
+            return GraphNodeType.SWITCH;
+        }
+        if (type == TYPE_POWERSOURCE) {
+            return GraphNodeType.POWER_SOURCE;
+        }
+        return null;
+    }
+
+    private GraphNode makeGraph() {
+        GraphNode source = null;
+        for (Button btns : buttons) {
+            int id = btns.getId();
+            GraphNodeType type = findGraphNodeType(id);
+
+            String name = String.valueOf(id);
+            GraphNode node = new GraphNode(name, type);
+            if (type == GraphNodeType.POWER_SOURCE) {
+                source = node;
+            }
+            nodes.add(node);
+        }
+        for (GraphNode node : nodes) {
+            for (int[] connection : connected) {
+                if (node.getName().equals(String.valueOf(connection[0]))) {
+                    GraphNode secondNode = new GraphNode(String.valueOf(connection[1]),
+                            findGraphNodeType(connection[1]));
+                    node.addAdjacent(secondNode, connection[2]);
+                }
+            }
+        }
+        return source;
     }
 }
