@@ -1,6 +1,6 @@
 <template>
   <div id="page-container">
-    <the-header page="Clear Graph" @ClearGraph="deleteGraph"></the-header>
+    <the-header page="Clear Graph" @ClearGraph="deleteGraph" @PreviewGraph="showPreview"></the-header>
     <tool-bar @changeNode="ChangeNode"></tool-bar>
     <draw-box ref="Graph"></draw-box>
   </div>
@@ -24,10 +24,13 @@ export default {
   },
   methods:{
     deleteGraph(){
-      this.$refs.Grapg.DeleteGraph()
+      this.$refs.Graph.DeleteGraph()
     },
     ChangeNode(mode){
       this.$refs.Graph.ChangeNode(mode)
+    },
+    showPreview(){
+      this.$refs.Graph.sendGraph()
     }
   }
 

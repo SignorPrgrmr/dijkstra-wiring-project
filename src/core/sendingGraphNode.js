@@ -1,6 +1,6 @@
 import GraphEdge from "./GraphEdge";
 
-export default class GraphNode {
+export default class sendingGraphNode {
 
     edges
     name
