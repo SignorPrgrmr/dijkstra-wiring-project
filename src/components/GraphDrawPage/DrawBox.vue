@@ -1,10 +1,10 @@
 <template>
   <div id="box-container">
     <div id="draw-box" v-on:mousemove="updateXY" @click="Draw">
-      <!-- this div will contain wires, and the one inside this will have nodes -->
-      so, this has wires in it.
-      <div id="node-box">
-        and this one has nodes in it.
+      <svg id="wire-box"> <!-- this will contain wires -->
+
+      </svg>
+      <div id="node-box" > <!-- this will contain nodes -->
         <graph-node v-for="Node in Nodes" :key="Node.text" :x="Node.x" :y="Node.y" :text="Node.text" :class="Node.mode" @click="select(Node.text , Node.x ,Node.y)"></graph-node>
         <graph-cursor-node v-bind:class="node" ref="CursorNode"></graph-cursor-node>
       </div>
@@ -13,8 +13,9 @@
 </template>
 
 <script>
-import GraphNode from "@/components/GraphDrawPage/GraphNode";
 import GraphCursorNode from "@/components/GraphDrawPage/GraphCursorNode";
+import GraphNode from "@/components/GraphDrawPage/GraphNode";
+
 export default {
   name: 'DrawBox',
   components: {GraphCursorNode, GraphNode},
@@ -142,6 +143,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import "./../../../public/-variables";
 #box-container {
   grid-area: drawbox;
   width: 100%;
@@ -158,16 +160,13 @@ export default {
     overflow: auto;
     box-shadow: 0 0 10px 3px rgba(0,0,0,0.2);
     border-radius: 8px;
-
     position: relative;
 
+    #wire-box {
+      @include draw-box;
+    }
     #node-box {
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      position: absolute;
-      top: 0;
-      left: 0;
+      @include draw-box;
     }
   }
 }

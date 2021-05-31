@@ -32,8 +32,8 @@ export default {
   margin: 0;
   padding: 0;
   position: absolute;
-  //left: 100%; //determines the position of the Node on the parent div.
-  //top: 100%; //determines the position of the Node on the parent div.
+  //left: 1000px; //determines the position of the Node on the parent div.
+  //top: 100px; //determines the position of the Node on the parent div.
 
   .node-name {
     width: 100%;

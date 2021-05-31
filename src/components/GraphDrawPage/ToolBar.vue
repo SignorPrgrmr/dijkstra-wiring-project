@@ -4,6 +4,8 @@
     <button class="toolbar-button" @click="changeNode('node-junction-box')">Junction Box</button>
     <button class="toolbar-button" @click="changeNode('node-switch')">Switch</button>
     <button class="toolbar-button" @click="changeNode('wire')">Wire</button>
+    <button class="toolbar-button">Delete Node</button>
+    <button class="toolbar-button">Delete Wire</button>
   </div>
 </template>
 

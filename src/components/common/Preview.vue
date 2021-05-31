@@ -2,8 +2,10 @@
   <div id="preview-container">
     <label id="close-preview">&#x2715;</label>
 
-    <div id="graph-content"> <!-- this div will contain wires -->
-      some wires here let's imagine.
+    <div id="graph-content">
+      <svg id="preview-wires"><!-- this div will contain wires -->
+
+      </svg>
       <div id="preview-nodes"> <!-- this div will have nodes in it -->
         <graph-node class="node-power-source"></graph-node>
       </div>
@@ -74,13 +76,23 @@ export default {
 
   #graph-content {
     display: block; // toggle none and block
+    overflow: auto;
 
     @include preview-box;
 
+    #preview-wires {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background: transparent;
+      top: 0;
+      left: 0;
+    }
     #preview-nodes {
       width: 100%;
       height: 100%;
       position: absolute;
+      background: transparent;
       top: 0;
       left: 0;
       //border: 1px solid red;
