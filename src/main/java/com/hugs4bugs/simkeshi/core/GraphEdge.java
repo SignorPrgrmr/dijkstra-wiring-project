@@ -1,5 +1,7 @@
 package com.hugs4bugs.simkeshi.core;
 
+import com.hugs4bugs.simkeshi.core.helper.GraphEdgeHelper;
+
 public class GraphEdge implements Comparable<GraphEdge> {
 
     private final GraphNode firstNode;
@@ -56,8 +58,25 @@ public class GraphEdge implements Comparable<GraphEdge> {
         return node == firstNode ? secondNode : node == secondNode ? firstNode : null;
     }
 
+    public GraphEdgeHelper getHelper() {
+        GraphEdgeHelper helper = new GraphEdgeHelper();
+        helper.setFirstNode(firstNode.getName());
+        helper.setSecondNode(secondNode.getName());
+        helper.setCost(cost);
+        return helper;
+    }
+
     @Override
     public int compareTo(GraphEdge graphEdge) {
         return cost - graphEdge.cost;
+    }
+
+    @Override
+    public String toString() {
+        return "GraphEdge{" +
+                "firstNode=" + firstNode +
+                ", secondNode=" + secondNode +
+                ", cost=" + cost +
+                '}';
     }
 }
