@@ -15,7 +15,7 @@
 
     <div id="preview-buttons">
       <button id="toggle-preview" v-show="ImagePreview" @click="toggle">{{ toggleTxt1 }}</button>
-      <button id="save-graph">Save Image</button>
+      <button id="save-graph" @click="save">Save Image</button>
     </div>
   </div>
 </template>
@@ -64,6 +64,9 @@ export default {
     //  add nodes and wires to arrays
       console.log(obj)
     //  set source for image
+    },
+    save(){
+
     }
   }
 }

@@ -57,6 +57,8 @@ export default {
     },
     ChangeNode(mode){
       this.node = mode
+      this.wire = []
+      this.text = ''
     },
     select(txt , x , y){
       if (this.wire.length == 1){
@@ -70,26 +72,30 @@ export default {
         }
         this.wire.push(wireNode)
         if(this.wire.length == 2) {
-          const cost = prompt("Please enter cost(if you wanna cancel darwing wire just leave it empty)");
-          if (cost == null || cost == "") {
-            this.wire = {}
-            this.node = ''
-          } else {
-            const newWire = {
-              first: this.wire[0].text,
-              second: this.wire[1].text,
-              x1: Number(this.wire[0].x)+12.5,
-              y1: Number(this.wire[0].y)+12.5,
-              x2: Number(this.wire[1].x)+12.5,
-              y2: Number(this.wire[1].y)+12.5,
-              wireCost: Number(cost),
-              wireStyle : "stroke:rgb(0,0,0);stroke-width:4",
-              key :this.key
-            }
-            this.key++
-            this.wires.push(newWire)
+          if (this.wire[0].text == this.wire[1].text){
+            alert('Can not set wire between one node and itself')
             this.wire = []
-            this.node = ''
+          }
+          else {
+            const cost = prompt("Please enter cost(if you wanna cancel darwing wire just leave it empty)");
+            if (cost == null || cost == "") {
+              this.wire = {}
+            } else {
+              const newWire = {
+                first: this.wire[0].text,
+                second: this.wire[1].text,
+                x1: Number(this.wire[0].x)+12.5,
+                y1: Number(this.wire[0].y)+12.5,
+                x2: Number(this.wire[1].x)+12.5,
+                y2: Number(this.wire[1].y)+12.5,
+                wireCost: Number(cost),
+                wireStyle : "stroke:rgb(0,0,0);stroke-width:4",
+                key :this.key
+              }
+              this.key++
+              this.wires.push(newWire)
+              this.wire = []
+            }
           }
         }
       }
@@ -101,7 +107,6 @@ export default {
             if (txt == "P"){
               this.p = 0
             }
-            this.node = ''
             break
           }
         }
@@ -141,8 +146,8 @@ export default {
         sendingEdges.push(newEdge)
       }
       let formData = new FormData()
-      formData.append('nodes' , sendingNodes)
-      formData.append('edges' , sendingEdges)
+      formData.append('nodes' , JSON.stringify(sendingNodes))
+      formData.append('edges' , JSON.stringify(sendingEdges))
       fetch(this.getServerUrl + "/api/graph", {
         method: "POST",
         body: formData
@@ -183,7 +188,6 @@ export default {
             }
             let newNode = {text : this.text, x : this.x , y : this.y , mode : this.node}
             this.Nodes.push(newNode)
-            this.node = ""
             this.x = 0
             this.y = 0
           }
