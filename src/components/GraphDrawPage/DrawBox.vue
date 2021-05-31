@@ -1,13 +1,11 @@
 <template>
   <div id="box-container">
     <div id="draw-box" v-on:mousemove="updateXY" @click="Draw">
-      <svg id="wire-box"> <!-- this will contain wires -->
-
+      <svg id="wire-box">
+        <line v-for="Wire in wires" :key='Wire.key' :x1="Wire.x1" :x2="Wire.x2" :y1="Wire.y1" :y2="Wire.y2" :style="Wire.wireStyle" @click="deleteWire(Wire.key)"><title>cost = {{ Wire.wireCost }}</title></line>
       </svg>
-      <div id="node-box" > <!-- this will contain nodes -->
-        <graph-node v-for="Node in Nodes" :key="Node.text" :x="Node.x" :y="Node.y" :text="Node.text" :class="Node.mode" @click="select(Node.text , Node.x ,Node.y)"></graph-node>
-        <graph-cursor-node v-bind:class="node" ref="CursorNode"></graph-cursor-node>
-      </div>
+      <graph-node v-for="Node in Nodes" :key="Node.text" :x="Node.x" :y="Node.y" :text="Node.text" :class="Node.mode" @click="select(Node.text , Node.x ,Node.y)"></graph-node>
+      <graph-cursor-node v-bind:class="node" ref="CursorNode"></graph-cursor-node>
     </div>
   </div>
 </template>
@@ -21,6 +19,7 @@ export default {
   components: {GraphCursorNode, GraphNode},
   data(){
     return{
+      key : 0,
       x : 0,
       y : 0,
       p : 0,
@@ -35,6 +34,7 @@ export default {
   },
   methods:{
     DeleteGraph(){
+      this.key = 0
       this.x = 0
       this.y = 0
       this.p = 0,
@@ -55,6 +55,9 @@ export default {
       this.node = mode
     },
     select(txt , x , y){
+      if (this.wire.length == 1){
+        this.node = 'wire'
+      }
       if(this.node == 'wire'){
         const wireNode = {
           text : txt,
@@ -68,19 +71,53 @@ export default {
             this.wire = {}
             this.node = ''
           } else {
-            //  draw line
             const newWire = {
               first: this.wire[0].text,
               second: this.wire[1].text,
-              x1: this.wire[0].x,
-              y1: this.wire[0].y,
-              x2: this.wire[1].x,
-              y2: this.wire[1].y,
-              wireCost: Number(cost)
+              x1: Number(this.wire[0].x)+12.5,
+              y1: Number(this.wire[0].y)+12.5,
+              x2: Number(this.wire[1].x)+12.5,
+              y2: Number(this.wire[1].y)+12.5,
+              wireCost: Number(cost),
+              wireStyle : "stroke:rgb(0,0,0);stroke-width:4",
+              key :this.key
             }
+            this.key++
             this.wires.push(newWire)
-            this.wire = {}
+            this.wire = []
             this.node = ''
+          }
+        }
+      }
+      else if (this.node == 'delete-node'){
+        for(let i = 0 ; i < this.Nodes.length ; i++){
+          if (this.Nodes[i].text == txt){
+            this.Nodes[i] = this.Nodes[this.Nodes.length-1]
+            this.Nodes.pop()
+            if (txt == "P"){
+              this.p = 0
+            }
+            this.node = ''
+            break
+          }
+        }
+        for (let i = 0 ; i < this.wires.length ; i++){
+          if (this.wires[i].first == txt || this.wires[i].second == txt){
+            this.wires[i] = this.wires[this.wires.length-1]
+            this.wires.pop()
+            i--
+          }
+        }
+      }
+    },
+    deleteWire(key){
+      if (this.node == 'delete-wire'){
+        for(let i = 0 ; i < this.wires.length ; i++){
+          if (this.wires[i].key == key){
+            this.wires[i] = this.wires[this.wires.length-1]
+            this.wires.pop()
+            this.node = ''
+            break
           }
         }
       }
@@ -88,7 +125,10 @@ export default {
     sendGraph(){
       const sendingNodes = []
       const sendingEdges = []
-      const sendArray = [sendingNodes , sendingEdges]
+      const sendObj = {
+        nodes : sendingNodes ,
+        edges: sendingEdges
+      }
       for (const Node of this.Nodes){
         sendingNodes.push(Node.text)
       }
@@ -96,44 +136,53 @@ export default {
         const newEdge = {
           firstNode : Wire.first,
           secondNode : Wire.second,
-          cost : Wire.cost
+          cost : Wire.wireCost
         }
         sendingEdges.push(newEdge)
       }
       fetch(this.getServerUrl + "/api/graph", {
         method: "POST",
-        body: JSON.stringify(sendArray)
+        body: JSON.stringify(sendObj)
       }).then(response =>{
         if (response.ok){
           const Edges = response.json()
-          console.log(Edges)
-          // draw graph
+          const previewObj = {
+            nodes : this.Nodes,
+            wires : this.wires,
+            selectedWires : Edges
+          }
+          this.$emit('makeGraph' , previewObj)
         }
       })
     },
     Draw(){
-      if (this.node.charAt(5) == 'p' && this.p == 1){
-        alert('cannot add more than one Power Source')
+      if (this.node.charAt(0) == 'w' || this.node.charAt(0) == 'd'){
+        console.log("I'm not suppose to do anything")
       }
       else{
-        if(this.node != ""){
-          if(this.node.charAt(5) == 'p'){
-            this.text = `P`
-            this.p++
+        if (this.node.charAt(5) == 'p' && this.p == 1){
+          alert('cannot add more than one Power Source')
+        }
+        else{
+          if(this.node != ""){
+            if(this.node.charAt(5) == 'p'){
+              this.text = `P`
+              this.p++
+            }
+            else if(this.node.charAt(5) == 'j'){
+              this.text = `J${this.j}`
+              this.j++
+            }
+            else{
+              this.text = `S${this.s}`
+              this.s++
+            }
+            let newNode = {text : this.text, x : this.x , y : this.y , mode : this.node}
+            this.Nodes.push(newNode)
+            this.node = ""
+            this.x = 0
+            this.y = 0
           }
-          else if(this.node.charAt(5) == 'j'){
-            this.text = `J${this.j}`
-            this.j++
-          }
-          else{
-            this.text = `S${this.s}`
-            this.s++
-          }
-          let newNode = {text : this.text, x : this.x , y : this.y , mode : this.node}
-          this.Nodes.push(newNode)
-          this.node = ""
-          this.x = 0
-          this.y = 0
         }
       }
     }
@@ -163,9 +212,6 @@ export default {
     position: relative;
 
     #wire-box {
-      @include draw-box;
-    }
-    #node-box {
       @include draw-box;
     }
   }

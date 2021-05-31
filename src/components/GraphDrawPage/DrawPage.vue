@@ -2,11 +2,11 @@
   <div id="page-container">
     <the-header page="Clear Graph" @ClearGraph="deleteGraph" @PreviewGraph="showPreview"></the-header>
     <tool-bar @changeNode="ChangeNode"></tool-bar>
-    <draw-box ref="Graph"></draw-box>
+    <draw-box ref="Graph" @makeGraph="MakeGraph"></draw-box>
   </div>
 
-<!--  <preview></preview>-->
-  <div id="drawPage-backdrop"></div> <!-- close preview when clicked on -->
+  <div id="drawPage-backdrop" :style="style" @click="hidePreview"></div> <!-- close preview when clicked on -->
+  <preview ref="preview" v-show="show" @closePreview="hidePreview"></preview>
 
 </template>
 
@@ -14,15 +14,21 @@
 import TheHeader from "../common/TheHeader";
 import ToolBar from "./ToolBar";
 import DrawBox from "./DrawBox";
+import Preview from "../common/Preview";
 export default {
   name: 'DrawPage',
-  components: { DrawBox, ToolBar, TheHeader},
+  components: {Preview, DrawBox, ToolBar, TheHeader},
   data(){
     return{
-      positions : {}
+      style : "display : none",
+      show : false
     }
   },
   methods:{
+    hidePreview(){
+      this.show = false
+      this.style = "display : none"
+    },
     deleteGraph(){
       this.$refs.Graph.DeleteGraph()
     },
@@ -30,7 +36,12 @@ export default {
       this.$refs.Graph.ChangeNode(mode)
     },
     showPreview(){
+      this.show = true
+      this.style = "display : block"
       this.$refs.Graph.sendGraph()
+    },
+    MakeGraph(obj){
+      this.$refs.preview.DrawGraph(obj)
     }
   }
 

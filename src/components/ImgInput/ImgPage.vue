@@ -3,7 +3,7 @@
     <the-header page="Clear Image" @ClearImage="deleteImage" @PreviewImageGraph="PreviewImageGraph"></the-header>
     <input-img ref="Image" @makeGraph="MakeGraph"></input-img>
     <div class="preview" v-show="Preview" @click="Preview = false"></div>
-    <preview ref="PreviewPage" v-show="Preview" ></preview>
+    <preview ref="PreviewPage" v-show="Preview" @closePreview="Preview = false"></preview>
   </div>
 
 </template>
@@ -17,7 +17,7 @@ export default {
   components: {Preview, InputImg, TheHeader},
   data(){
     return{
-      Preview : true,
+      Preview : false,
     }
   },
   methods:{
@@ -29,9 +29,7 @@ export default {
       this.$refs.Image.GetImageGraphFromBack()
     },
     MakeGraph(graph){
-      // this.$refs.PreviewPage.DrawGraph(graph)
-    //  draw graph in preview and show image out out in preview
-      console.log(graph)
+      this.$refs.PreviewPage.ImageGraph(graph)
     },
   }
 }
