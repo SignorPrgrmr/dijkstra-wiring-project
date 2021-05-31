@@ -13,9 +13,13 @@
 <script>
 import GraphCursorNode from "@/components/GraphDrawPage/GraphCursorNode";
 import GraphNode from "@/components/GraphDrawPage/GraphNode";
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'DrawBox',
+  computed:{
+    ...mapGetters(['getServerUrl'])
+  },
   components: {GraphCursorNode, GraphNode},
   data(){
     return{
@@ -125,10 +129,6 @@ export default {
     sendGraph(){
       const sendingNodes = []
       const sendingEdges = []
-      const sendObj = {
-        nodes : sendingNodes ,
-        edges: sendingEdges
-      }
       for (const Node of this.Nodes){
         sendingNodes.push(Node.text)
       }
@@ -140,19 +140,23 @@ export default {
         }
         sendingEdges.push(newEdge)
       }
+      let formData = new FormData()
+      formData.append('nodes' , sendingNodes)
+      formData.append('edges' , sendingEdges)
       fetch(this.getServerUrl + "/api/graph", {
         method: "POST",
-        body: JSON.stringify(sendObj)
+        body: formData
       }).then(response =>{
         if (response.ok){
-          const Edges = response.json()
-          const previewObj = {
-            nodes : this.Nodes,
-            wires : this.wires,
-            selectedWires : Edges
-          }
-          this.$emit('makeGraph' , previewObj)
+          return response.json()
         }
+      }).then(json => {
+        const previewObj = {
+          nodes : this.Nodes,
+          wires : this.wires,
+          selectedWires : json
+        }
+        this.$emit('makeGraph' , previewObj)
       })
     },
     Draw(){

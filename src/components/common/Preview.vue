@@ -50,7 +50,8 @@ export default {
       this.nodes = obj.nodes
       for (let i = 0 ; i < obj.selectedWires.length ; i++){
         for (let j = 0 ; j < obj.wires.length ; j++){
-          if (obj.selectedWires[i].firstNode == obj.wires[j].first && obj.selectedWires[i].secondNode == obj.wires[j].second){
+          if ((obj.selectedWires[i].firstNode == obj.wires[j].first && obj.selectedWires[i].secondNode == obj.wires[j].second) ||
+              (obj.selectedWires[i].firstNode == obj.wires[j].second && obj.selectedWires[i].secondNode == obj.wires[j].first)){
             obj.wires[j].wireStyle = "stroke:rgb(255,0,0);stroke-width:4"
           }
         }
@@ -62,7 +63,7 @@ export default {
       this.ImagePreview = true
     //  add nodes and wires to arrays
       console.log(obj)
-    //  set sourec for image
+    //  set source for image
     }
   }
 }
