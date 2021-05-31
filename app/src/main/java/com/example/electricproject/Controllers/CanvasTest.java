@@ -98,10 +98,11 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         btnSubmit.setOnClickListener((v) -> {
             // make and submit graph
             //find the power source node and send it to prim class
-            snack(v, "No Problem Bro");
+
             makeGraph();
             PrimAlgorithm solution = new PrimAlgorithm();
             GraphNode result = solution.findTheOptimumSolution(getPowerSourceNode());
+            snack(v, "No Problem Bro");
             twTest.setText(result.getName() + "" + result.getType());
         });
 
