@@ -28,6 +28,15 @@ public class PrimAlgorithm {
         boolean flag = true;
         GraphNode pointer = head;
         while (flag) {
+            edgesUnderOperation.removeIf(graphEdge -> {
+                if (nodes.contains(graphEdge.getFirstNode()) && nodes.contains(graphEdge.getSecondNode())) {
+                    graphEdge.getFirstNode().getEdges().remove(graphEdge);
+                    graphEdge.getSecondNode().getEdges().remove(graphEdge);
+                    System.out.println("Removed " + graphEdge);
+                    return true;
+                }
+                return false;
+            });
             for (GraphEdge edge : pointer.getEdges()) {
                 if (!nodes.contains(edge.getAdjacent(pointer))) {
                     edgesUnderOperation.add(edge);
@@ -40,15 +49,6 @@ public class PrimAlgorithm {
                 pointer = minimum.getFirstNode();
             nodes.add(pointer);
             System.out.println("Added " + pointer + " via " + minimum);
-            edgesUnderOperation.removeIf(graphEdge -> {
-                if (nodes.contains(graphEdge.getFirstNode()) && nodes.contains(graphEdge.getSecondNode())) {
-                    graphEdge.getFirstNode().getEdges().remove(graphEdge);
-                    graphEdge.getSecondNode().getEdges().remove(graphEdge);
-                    System.out.println("Removed " + graphEdge);
-                    return true;
-                }
-                return false;
-            });
             flag = !edgesUnderOperation.isEmpty();
         }
         return new ArrayList<>(nodes);
