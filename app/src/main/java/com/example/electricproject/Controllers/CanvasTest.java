@@ -5,13 +5,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -30,7 +26,6 @@ import com.example.electricproject.Classes.PrimAlgorithm;
 import com.example.electricproject.Interfaces.ICanvasTest;
 import com.example.electricproject.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -65,6 +60,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private int[] linePointsId = {0, 1};
     private Button btnTmp;
     private boolean selected;
+    private ArrayList<ImageView>imageViews;
+    private ArrayList<TextView>textViews;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
@@ -90,6 +87,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         vLocation = new ArrayList<>();
         connected = new ArrayList<>();
         nodes = new ArrayList<>();
+        imageViews = new ArrayList<>();
+        textViews = new ArrayList<>();
         flagFabKey = false;
         flagFabPowerSource = false;
         flagFabJunctionBox = false;
@@ -477,6 +476,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             iv.setBackgroundResource(R.drawable.line);
             iv.setRotation(-1 * angle);
         }
+        imageViews.add(iv);
+        textViews.add(tw);
         relativeLayout.addView(iv);
         relativeLayout.addView(tw);
     }
@@ -536,14 +537,37 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     }
 
     @SuppressLint("ResourceType")
-    private void removeBtn(int id) {
-        relativeLayout.removeView(buttons.get(id));
-        buttons.remove(id);
-        for(int i = id ; i<buttons.size(); i++){
+    private void removeBtn(int removeId) {
+        relativeLayout.removeView(buttons.get(removeId));
+        buttons.remove(removeId);
+        for(int i = removeId; i<buttons.size(); i++){
             Button btn = buttons.get(i);
             btn.setId(btn.getId()-1);
         }
-        vLocation.remove(id);
+        vLocation.remove(removeId);
         verticesCount--;
+        int node1_id = -1, node2_id = -1,w=-1;
+        for(int i = 0 ; i<connected.size() ; i++){
+            node1_id = connected.get(i)[0];
+            node2_id = connected.get(i)[1];
+            w = connected.get(i)[2];
+            if(node1_id == removeId || node2_id == removeId){
+                relativeLayout.removeView(imageViews.get(i));
+                relativeLayout.removeView(textViews.get(i));
+                imageViews.remove(i);
+                textViews.remove(i);
+                connected.remove(i);
+                i--;
+            }
+            else if(node1_id > removeId || node2_id > removeId) {
+                if(node1_id > removeId){
+                    connected.set(i, new int[]{node1_id - 1, node2_id, w});
+                    node1_id = node1_id - 1;
+                }
+                if(node2_id > removeId){
+                    connected.set(i, new int[]{node1_id, node2_id -1, w});
+                }
+            }
+        }
     }
 }
