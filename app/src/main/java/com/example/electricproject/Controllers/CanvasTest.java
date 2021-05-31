@@ -98,9 +98,11 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         btnSubmit.setOnClickListener((v) -> {
             // make and submit graph
             //find the power source node and send it to prim class
+            snack(v, "No Problem Bro");
+            makeGraph();
             PrimAlgorithm solution = new PrimAlgorithm();
-            GraphNode result = solution.findTheOptimumSolution(makeGraph());
-
+            GraphNode result = solution.findTheOptimumSolution(getPowerSourceNode());
+            twTest.setText(result.getName() + "" + result.getType());
         });
 
 
@@ -455,17 +457,12 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         return null;
     }
 
-    private GraphNode makeGraph() {
-        GraphNode source = null;
+    private void makeGraph() {
         for (Button btns : buttons) {
             int id = btns.getId();
             GraphNodeType type = findGraphNodeType(id);
-
             String name = String.valueOf(id);
             GraphNode node = new GraphNode(name, type);
-            if (type == GraphNodeType.POWER_SOURCE) {
-                source = node;
-            }
             nodes.add(node);
         }
         for (GraphNode node : nodes) {
@@ -477,6 +474,28 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                 }
             }
         }
-        return source;
+
     }
+
+
+    private int btnPowerSourceId() {
+        for (Button btns : buttons) {
+            int id = btns.getId();
+            if (vLocation.get(id)[2] == TYPE_POWERSOURCE) {
+                return id;
+            }
+        }
+        return -1;
+    }
+
+    private GraphNode getPowerSourceNode() {
+        for (GraphNode node : nodes) {
+            if (node.getName().equals(String.valueOf(btnPowerSourceId()))) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+
 }
