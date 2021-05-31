@@ -55,10 +55,12 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private FloatingActionButton fabKey;
     private FloatingActionButton fabPowerSource;
     private FloatingActionButton fabLine;
+    private FloatingActionButton fabRemoveBtn;
     private boolean flagFabKey;
     private boolean flagFabPowerSource;
     private boolean flagFabJunctionBox;
     private boolean flagFabLine;
+    private boolean flagFabRemoveBtn;
     private float x1, y1, x2, y2;
     private int[] linePointsId = {0, 1};
     private Button btnTmp;
@@ -83,6 +85,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         fabKey = findViewById(R.id.fab_key);
         fabPowerSource = findViewById(R.id.fab_power_source);
         fabLine = findViewById(R.id.fab_line);
+        fabRemoveBtn = findViewById(R.id.fab_remove_btn);
         buttons = new ArrayList<>();
         vLocation = new ArrayList<>();
         connected = new ArrayList<>();
@@ -91,6 +94,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         flagFabPowerSource = false;
         flagFabJunctionBox = false;
         flagFabLine = false;
+        flagFabRemoveBtn = false;
 //====================================================End of Initialize All Stuff==============//
 
 //====================================================Start of Submit============//
@@ -141,6 +145,16 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                 btnTmp = null;
                 selected = false;
             }
+        });
+        fabRemoveBtn.setOnClickListener((v) -> {
+            if (!flagFabRemoveBtn) {
+                snack(v, "Choosing Remove");
+                chooseOneFab(REMOVE);
+                unSelectButtons();
+                btnTmp = null;
+                selected = false;
+            }
+
         });
         fabLine.setOnClickListener((v) -> {
             if (!flagFabLine) {
@@ -233,6 +247,9 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                     selectButton(btnTmp);
                     linePointsId[0] = btnTmp.getId();
                 }
+            }else if(flagFabRemoveBtn){
+                removeBtn(id);
+                twTest.setText("remove "+id);
             }
         });
 
@@ -298,30 +315,36 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             flagFabPowerSource = false;
             flagFabLine = false;
             flagFabKey = false;
+            flagFabRemoveBtn =false;
             fabLine.getBackground().setAlpha(255);
             fabPowerSource.getBackground().setAlpha(255);
             fabKey.getBackground().setAlpha(255);
             fabJunctionBox.getBackground().setAlpha(150);
+            fabRemoveBtn.getBackground().setAlpha(255);
         }
         if (chosen.equals(KEY)) {
             flagFabJunctionBox = false;
             flagFabPowerSource = false;
             flagFabLine = false;
             flagFabKey = true;
+            flagFabRemoveBtn =false;
             fabLine.getBackground().setAlpha(255);
             fabPowerSource.getBackground().setAlpha(255);
             fabKey.getBackground().setAlpha(150);
             fabJunctionBox.getBackground().setAlpha(255);
+            fabRemoveBtn.getBackground().setAlpha(255);
         }
         if (chosen.equals(POWERSOURCE)) {
             flagFabJunctionBox = false;
             flagFabPowerSource = true;
             flagFabLine = false;
             flagFabKey = false;
+            flagFabRemoveBtn =false;
             fabLine.getBackground().setAlpha(255);
             fabPowerSource.getBackground().setAlpha(150);
             fabKey.getBackground().setAlpha(255);
             fabJunctionBox.getBackground().setAlpha(255);
+            fabRemoveBtn.getBackground().setAlpha(255);
         }
 
         if (chosen.equals(LINE)) {
@@ -329,10 +352,24 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             flagFabPowerSource = false;
             flagFabLine = true;
             flagFabKey = false;
+            flagFabRemoveBtn =false;
             fabLine.getBackground().setAlpha(200);
             fabPowerSource.getBackground().setAlpha(255);
             fabKey.getBackground().setAlpha(255);
             fabJunctionBox.getBackground().setAlpha(255);
+            fabRemoveBtn.getBackground().setAlpha(255);
+        }
+        if (chosen.equals(REMOVE)) {
+            flagFabJunctionBox = false;
+            flagFabPowerSource = false;
+            flagFabLine = false;
+            flagFabKey = false;
+            flagFabRemoveBtn =true;
+            fabLine.getBackground().setAlpha(255);
+            fabPowerSource.getBackground().setAlpha(255);
+            fabKey.getBackground().setAlpha(255);
+            fabJunctionBox.getBackground().setAlpha(255);
+            fabRemoveBtn.getBackground().setAlpha(200);
         }
     }
 
@@ -498,5 +535,15 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         return null;
     }
 
-
+    @SuppressLint("ResourceType")
+    private void removeBtn(int id) {
+        relativeLayout.removeView(buttons.get(id));
+        buttons.remove(id);
+        for(int i = id ; i<buttons.size(); i++){
+            Button btn = buttons.get(i);
+            btn.setId(btn.getId()-1);
+        }
+        vLocation.remove(id);
+        verticesCount--;
+    }
 }

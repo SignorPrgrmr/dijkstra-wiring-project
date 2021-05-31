@@ -73,7 +73,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="90dp"
                 android:orientation="horizontal"
                 android:id="@+id/layout_fabs"
@@ -82,6 +82,16 @@
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#F43D3D"
+                    android:clickable="true"
+                    android:id="@+id/fab_remove_btn"
+                    app:fabCustomSize="50dp"
+                    app:srcCompat="@android:drawable/ic_delete" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:backgroundTint="#4CAF50"
                     android:clickable="true"
                     android:id="@+id/fab_power_source"
