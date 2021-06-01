@@ -28,6 +28,7 @@ export default {
     hidePreview(){
       this.show = false
       this.style = "display : none"
+      this.$refs.Graph.makeWiresBlack()
     },
     deleteGraph(){
       this.$refs.Graph.DeleteGraph()

@@ -145,6 +145,13 @@ export default {
         }
         sendingEdges.push(newEdge)
       }
+        //test field
+        // const previewObj = {
+        //   nodes : this.Nodes,
+        //   wires : this.wires,
+        //   selectedWires : sendingEdges.slice(2 , 5)
+        // }
+        // this.$emit('makeGraph' , previewObj)
       let formData = new FormData()
       formData.append('nodes' , JSON.stringify(sendingNodes))
       formData.append('edges' , JSON.stringify(sendingEdges))
@@ -163,6 +170,11 @@ export default {
         }
         this.$emit('makeGraph' , previewObj)
       })
+    },
+    makeWiresBlack(){
+      for (let i = 0 ; i < this.wires.length ; i++){
+        this.wires[i].wireStyle = "stroke:rgb(0,0,0);stroke-width:4"
+      }
     },
     Draw(){
       if (this.node.charAt(0) == 'w' || this.node.charAt(0) == 'd'){

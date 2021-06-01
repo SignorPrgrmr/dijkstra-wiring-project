@@ -22,6 +22,8 @@
 
 <script>
 import GraphNode from "@/components/GraphDrawPage/GraphNode";
+import html2canvas from 'html2canvas';
+
 export default {
   name: 'Preview',
   components: {GraphNode},
@@ -48,15 +50,15 @@ export default {
     },
     DrawGraph(obj){
       this.nodes = obj.nodes
+      this.wires = [...obj.wires]
       for (let i = 0 ; i < obj.selectedWires.length ; i++){
-        for (let j = 0 ; j < obj.wires.length ; j++){
-          if ((obj.selectedWires[i].firstNode == obj.wires[j].first && obj.selectedWires[i].secondNode == obj.wires[j].second) ||
-              (obj.selectedWires[i].firstNode == obj.wires[j].second && obj.selectedWires[i].secondNode == obj.wires[j].first)){
-            obj.wires[j].wireStyle = "stroke:rgb(255,0,0);stroke-width:4"
+        for (let j = 0 ; j < this.wires.length ; j++){
+          if ((obj.selectedWires[i].firstNode == this.wires[j].first && obj.selectedWires[i].secondNode == this.wires[j].second) ||
+              (obj.selectedWires[i].firstNode == this.wires[j].second && obj.selectedWires[i].secondNode == this.wires[j].first)){
+            this.wires[j].wireStyle = "stroke:rgb(255,0,0);stroke-width:4"
           }
         }
       }
-      this.wires = obj.wires
     },
     ImageGraph(obj){
       this.showGraph = false
@@ -66,7 +68,13 @@ export default {
     //  set source for image
     },
     save(){
-
+      html2canvas(document.getElementById('graph-content')).then(function(canvas) {
+        const aEl = document.createElement('a')
+        aEl.setAttribute('href' , canvas.toDataURL('image/jepg'))
+        aEl.setAttribute('download' , 'download')
+        aEl.setAttribute('style' , 'display : none')
+        aEl.click()
+      });
     }
   }
 }
