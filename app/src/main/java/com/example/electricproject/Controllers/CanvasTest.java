@@ -219,6 +219,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             vLocation.add(new float[]{x, y, TYPE_POWERSOURCE});
         }
         btn.setId(verticesCount);
+        btn.setText(""+verticesCount);
+        btn.setPadding(0,0,0,1);
         verticesCount++;
 
         relativeLayout.addView(btn);
@@ -247,8 +249,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                     linePointsId[0] = btnTmp.getId();
                 }
             }else if(flagFabRemoveBtn){
-                removeBtn(id);
                 twTest.setText("remove "+id);
+                alertRemoveBtn(id);
             }
         });
 
@@ -306,6 +308,26 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         alert.show();
     }
 
+    private void alertRemoveBtn(int id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Remove node" + id + " ?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, which) -> removeBtn(id)).
+                setNegativeButton("No", (dialog, which) -> dialog.cancel());
+        AlertDialog alert = builder.create();
+        alert.setTitle("Remove A Node "+getEmoji(0x26A0) );
+        alert.show();
+    }
+    private void alertRemoveLine(int id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Remove the line from node" + connected.get(id)[0] + " to node"+connected.get(id)[1]+" ?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, which) -> removeLine(id)).
+                setNegativeButton("No", (dialog, which) -> dialog.cancel());
+        AlertDialog alert = builder.create();
+        alert.setTitle("Remove A Line "+getEmoji(0x26A0) );
+        alert.show();
+    }
 
     //=======================================================End of Alerts======//
     private void chooseOneFab(String chosen) {
@@ -456,7 +478,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         int lineLength = (int) Math.sqrt(Math.pow(absX, 2) + Math.pow(absY, 2));
         // -_-
         float angle = (float) Math.toDegrees(Math.atan(absY / absX));
-        RelativeLayout.LayoutParams lp_iv = new RelativeLayout.LayoutParams(lineLength, 5);
+        RelativeLayout.LayoutParams lp_iv = new RelativeLayout.LayoutParams(lineLength, 20);
         RelativeLayout.LayoutParams lp_tw = new
                 RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -480,6 +502,11 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         textViews.add(tw);
         relativeLayout.addView(iv);
         relativeLayout.addView(tw);
+        iv.setOnClickListener(View->{
+            if(flagFabRemoveBtn) {
+                alertRemoveLine(imageViews.indexOf(iv));
+            }
+        });
     }
 
     private GraphNodeType findGraphNodeType(int index) {
@@ -538,6 +565,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
 
     @SuppressLint("ResourceType")
     private void removeBtn(int removeId) {
+        // remove button
         relativeLayout.removeView(buttons.get(removeId));
         buttons.remove(removeId);
         for(int i = removeId; i<buttons.size(); i++){
@@ -546,12 +574,13 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         }
         vLocation.remove(removeId);
         verticesCount--;
+        // remove and edit lines
         int node1_id = -1, node2_id = -1,w=-1;
         for(int i = 0 ; i<connected.size() ; i++){
             node1_id = connected.get(i)[0];
             node2_id = connected.get(i)[1];
             w = connected.get(i)[2];
-            if(node1_id == removeId || node2_id == removeId){
+            if(node1_id == removeId || node2_id == removeId){//remove
                 relativeLayout.removeView(imageViews.get(i));
                 relativeLayout.removeView(textViews.get(i));
                 imageViews.remove(i);
@@ -559,7 +588,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                 connected.remove(i);
                 i--;
             }
-            else if(node1_id > removeId || node2_id > removeId) {
+            else if(node1_id > removeId || node2_id > removeId) {//edit
                 if(node1_id > removeId){
                     connected.set(i, new int[]{node1_id - 1, node2_id, w});
                     node1_id = node1_id - 1;
@@ -569,5 +598,12 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                 }
             }
         }
+    }
+    private void removeLine(int index){
+        relativeLayout.removeView(imageViews.get(index));
+        relativeLayout.removeView(textViews.get(index));
+        imageViews.remove(index);
+        textViews.remove(index);
+        connected.remove(index);
     }
 }
