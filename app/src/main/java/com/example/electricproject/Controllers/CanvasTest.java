@@ -60,8 +60,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private int[] linePointsId = {0, 1};
     private Button btnTmp;
     private boolean selected;
-    private ArrayList<ImageView>imageViews;
-    private ArrayList<TextView>textViews;
+    private ArrayList<ImageView> imageViews;
+    private ArrayList<TextView> textViews;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
@@ -99,16 +99,12 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
 //====================================================Start of Submit============//
 
         btnSubmit.setOnClickListener((v) -> {
-            // make and submit graph
-            //find the power source node and send it to prim class
-
             makeGraph();
             PrimAlgorithm solution = new PrimAlgorithm();
             GraphNode result = solution.findTheOptimumSolution(getPowerSourceNode());
             snack(v, "No Problem Bro");
             twTest.setText(result.getName() + "" + result.getType());
         });
-
 
 //=====================================================End of Submit============//
 
@@ -219,8 +215,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             vLocation.add(new float[]{x, y, TYPE_POWERSOURCE});
         }
         btn.setId(verticesCount);
-        btn.setText(""+verticesCount);
-        btn.setPadding(0,0,0,1);
+        btn.setText("" + verticesCount);
+        btn.setPadding(0, 0, 0, 1);
         verticesCount++;
 
         relativeLayout.addView(btn);
@@ -248,16 +244,16 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                     selectButton(btnTmp);
                     linePointsId[0] = btnTmp.getId();
                 }
-            }else if(flagFabRemoveBtn){
-                twTest.setText("remove "+id);
+            } else if (flagFabRemoveBtn) {
+                twTest.setText("remove " + id);
                 alertRemoveBtn(id);
             }
         });
 
     }
-//========================================================End of Create Button======//
 
-    //=====================================================Start of Alerts=======//
+    //========================================================End of Create Button======//
+//=====================================================Start of Alerts=======//
     private void alertJunctionBox() {
         alertPutButton(JUNCTIONBOX, getEmoji(0x1F9F0));
     }
@@ -315,17 +311,18 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                 .setPositiveButton("Yes", (dialog, which) -> removeBtn(id)).
                 setNegativeButton("No", (dialog, which) -> dialog.cancel());
         AlertDialog alert = builder.create();
-        alert.setTitle("Remove A Node "+getEmoji(0x26A0) );
+        alert.setTitle("Remove A Node " + getEmoji(0x26A0));
         alert.show();
     }
+
     private void alertRemoveLine(int id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Remove the line from node" + connected.get(id)[0] + " to node"+connected.get(id)[1]+" ?")
+        builder.setMessage("Remove the line from node" + connected.get(id)[0] + " to node" + connected.get(id)[1] + " ?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, which) -> removeLine(id)).
                 setNegativeButton("No", (dialog, which) -> dialog.cancel());
         AlertDialog alert = builder.create();
-        alert.setTitle("Remove A Line "+getEmoji(0x26A0) );
+        alert.setTitle("Remove A Line " + getEmoji(0x26A0));
         alert.show();
     }
 
@@ -336,7 +333,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             flagFabPowerSource = false;
             flagFabLine = false;
             flagFabKey = false;
-            flagFabRemoveBtn =false;
+            flagFabRemoveBtn = false;
             fabLine.getBackground().setAlpha(255);
             fabPowerSource.getBackground().setAlpha(255);
             fabKey.getBackground().setAlpha(255);
@@ -348,7 +345,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             flagFabPowerSource = false;
             flagFabLine = false;
             flagFabKey = true;
-            flagFabRemoveBtn =false;
+            flagFabRemoveBtn = false;
             fabLine.getBackground().setAlpha(255);
             fabPowerSource.getBackground().setAlpha(255);
             fabKey.getBackground().setAlpha(150);
@@ -360,7 +357,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             flagFabPowerSource = true;
             flagFabLine = false;
             flagFabKey = false;
-            flagFabRemoveBtn =false;
+            flagFabRemoveBtn = false;
             fabLine.getBackground().setAlpha(255);
             fabPowerSource.getBackground().setAlpha(150);
             fabKey.getBackground().setAlpha(255);
@@ -373,7 +370,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             flagFabPowerSource = false;
             flagFabLine = true;
             flagFabKey = false;
-            flagFabRemoveBtn =false;
+            flagFabRemoveBtn = false;
             fabLine.getBackground().setAlpha(200);
             fabPowerSource.getBackground().setAlpha(255);
             fabKey.getBackground().setAlpha(255);
@@ -385,7 +382,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             flagFabPowerSource = false;
             flagFabLine = false;
             flagFabKey = false;
-            flagFabRemoveBtn =true;
+            flagFabRemoveBtn = true;
             fabLine.getBackground().setAlpha(255);
             fabPowerSource.getBackground().setAlpha(255);
             fabKey.getBackground().setAlpha(255);
@@ -393,7 +390,6 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             fabRemoveBtn.getBackground().setAlpha(200);
         }
     }
-
 
     private void selectButton(Button btn) {
         selected = true;
@@ -502,8 +498,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         textViews.add(tw);
         relativeLayout.addView(iv);
         relativeLayout.addView(tw);
-        iv.setOnClickListener(View->{
-            if(flagFabRemoveBtn) {
+        iv.setOnClickListener(View -> {
+            if (flagFabRemoveBtn) {
                 alertRemoveLine(imageViews.indexOf(iv));
             }
         });
@@ -543,7 +539,6 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
 
     }
 
-
     private int btnPowerSourceId() {
         for (Button btns : buttons) {
             int id = btns.getId();
@@ -568,38 +563,38 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         // remove button
         relativeLayout.removeView(buttons.get(removeId));
         buttons.remove(removeId);
-        for(int i = removeId; i<buttons.size(); i++){
+        for (int i = removeId; i < buttons.size(); i++) {
             Button btn = buttons.get(i);
-            btn.setId(btn.getId()-1);
+            btn.setId(btn.getId() - 1);
         }
         vLocation.remove(removeId);
         verticesCount--;
         // remove and edit lines
-        int node1_id = -1, node2_id = -1,w=-1;
-        for(int i = 0 ; i<connected.size() ; i++){
+        int node1_id = -1, node2_id = -1, w = -1;
+        for (int i = 0; i < connected.size(); i++) {
             node1_id = connected.get(i)[0];
             node2_id = connected.get(i)[1];
             w = connected.get(i)[2];
-            if(node1_id == removeId || node2_id == removeId){//remove
+            if (node1_id == removeId || node2_id == removeId) {//remove
                 relativeLayout.removeView(imageViews.get(i));
                 relativeLayout.removeView(textViews.get(i));
                 imageViews.remove(i);
                 textViews.remove(i);
                 connected.remove(i);
                 i--;
-            }
-            else if(node1_id > removeId || node2_id > removeId) {//edit
-                if(node1_id > removeId){
+            } else if (node1_id > removeId || node2_id > removeId) {//edit
+                if (node1_id > removeId) {
                     connected.set(i, new int[]{node1_id - 1, node2_id, w});
                     node1_id = node1_id - 1;
                 }
-                if(node2_id > removeId){
-                    connected.set(i, new int[]{node1_id, node2_id -1, w});
+                if (node2_id > removeId) {
+                    connected.set(i, new int[]{node1_id, node2_id - 1, w});
                 }
             }
         }
     }
-    private void removeLine(int index){
+
+    private void removeLine(int index) {
         relativeLayout.removeView(imageViews.get(index));
         relativeLayout.removeView(textViews.get(index));
         imageViews.remove(index);
