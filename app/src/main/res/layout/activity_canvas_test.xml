@@ -2,26 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/layout_main"
     tools:context=".Controllers.CanvasTest">
 
-    <RelativeLayout
-        android:id="@+id/relative_layout"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:backgroundTint="#ACB3BF"
-        android:background="@drawable/layout_border"
-        android:orientation="vertical">
 
-    </RelativeLayout><!--Canvas-->
+        <RelativeLayout
+            android:id="@+id/relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:background="@drawable/layout_border"
+            android:backgroundTint="#ACB3BF"
+            android:orientation="vertical">
+
+        </RelativeLayout><!--Canvas-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tw_test"
@@ -29,6 +30,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp" />
+
     </LinearLayout><!--TextView Layout-->
 
     <LinearLayout
@@ -53,8 +55,8 @@
                 android:textSize="22sp" />
 
             <Button
-                android:layout_width="150dp"
                 android:id="@+id/btn_submit"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
@@ -71,37 +73,37 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/layout_fabs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="90dp"
                 android:orientation="horizontal"
-                android:id="@+id/layout_fabs"
                 android:visibility="invisible">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_remove_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#F43D3D"
                     android:clickable="true"
-                    android:id="@+id/fab_remove_btn"
                     app:fabCustomSize="50dp"
                     app:srcCompat="@android:drawable/ic_delete" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_power_source"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:backgroundTint="#4CAF50"
                     android:clickable="true"
-                    android:id="@+id/fab_power_source"
                     app:fabCustomSize="50dp"
                     app:srcCompat="@android:drawable/ic_lock_idle_low_battery" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_key"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/fab_key"
                     android:layout_marginLeft="10dp"
                     android:backgroundTint="#FF9800"
                     android:clickable="true"
@@ -109,23 +111,23 @@
                     app:srcCompat="@android:drawable/ic_lock_idle_charging" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_junction_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:backgroundTint="#3F51B5"
                     android:clickable="true"
-                    android:id="@+id/fab_junction_box"
                     app:fabCustomSize="50dp"
                     app:srcCompat="@android:drawable/stat_notify_error" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_line"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:backgroundTint="#E91E63"
                     android:clickable="true"
                     app:fabCustomSize="50dp"
-                    android:id="@+id/fab_line"
                     app:srcCompat="@android:drawable/btn_default" />
 
             </LinearLayout>
@@ -134,8 +136,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:elevation="0dp"
-                android:layout_marginTop="90dp">
+                android:layout_marginTop="90dp"
+                android:elevation="0dp">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_draw"
@@ -143,8 +145,8 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#9C27B0"
                     android:clickable="true"
-                    app:fabCustomSize="50dp"
                     android:elevation="0dp"
+                    app:fabCustomSize="50dp"
                     app:srcCompat="@android:drawable/ic_menu_edit" />
             </LinearLayout>
 

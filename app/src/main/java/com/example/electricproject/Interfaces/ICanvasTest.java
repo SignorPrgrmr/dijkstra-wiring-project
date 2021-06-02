@@ -9,5 +9,9 @@ public interface ICanvasTest {
     float TYPE_KEY = 1;
     float TYPE_JUNCTIONBOX = 2;
     float TYPE_POWERSOURCE = 3;
+    String SUBMITBUTTONSTATE_SUBMIT = "submit";
+    String SUBMITBUTTONSTATE_RESULTSHOWING = "result";
+    String SUBMITBUTTONSTATE_UNPROCCESSEDGRAPH = "graph";
+
 
 }

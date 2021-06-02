@@ -20,15 +20,17 @@ import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.electricproject.Classes.DijkstraAlgorithm;
+import com.example.electricproject.Classes.GraphEdge;
 import com.example.electricproject.Classes.GraphNode;
 import com.example.electricproject.Classes.GraphNodeType;
-import com.example.electricproject.Classes.PrimAlgorithm;
 import com.example.electricproject.Interfaces.ICanvasTest;
 import com.example.electricproject.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CanvasTest extends AppCompatActivity implements ICanvasTest {
 
@@ -41,6 +43,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private ArrayList<int[]> connected;
     private ArrayList<Button> buttons;
     private ArrayList<GraphNode> nodes;
+    private ArrayList<GraphNode> resultNodes;
     private FloatingActionButton fabDraw;
     private LinearLayout layoutFabs;
     private LinearLayout layoutMain;
@@ -62,6 +65,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private boolean selected;
     private ArrayList<ImageView> imageViews;
     private ArrayList<TextView> textViews;
+    private String btnSubmitState;
+    private GraphNode result;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
@@ -89,21 +94,50 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         nodes = new ArrayList<>();
         imageViews = new ArrayList<>();
         textViews = new ArrayList<>();
+        resultNodes = new ArrayList<>();
         flagFabKey = false;
         flagFabPowerSource = false;
         flagFabJunctionBox = false;
         flagFabLine = false;
         flagFabRemoveBtn = false;
+        btnSubmitState = SUBMITBUTTONSTATE_SUBMIT; // submit
 //====================================================End of Initialize All Stuff==============//
 
 //====================================================Start of Submit============//
 
         btnSubmit.setOnClickListener((v) -> {
-            makeGraph();
-            PrimAlgorithm solution = new PrimAlgorithm();
-            GraphNode result = solution.findTheOptimumSolution(getPowerSourceNode());
-            snack(v, "No Problem Bro");
-            twTest.setText(result.getName() + "" + result.getType());
+            if (btnSubmitState.equals(SUBMITBUTTONSTATE_SUBMIT)) {
+                if (powerSourceAvailability()) {
+                    btnSubmitState = SUBMITBUTTONSTATE_RESULTSHOWING;
+                    btnSubmit.setText("Change");
+                    makeButtonsInvisible();
+                    makeImagieviewsInvisible();
+                    makeTextViewsInvisible();
+                    makeGraph();
+                    DijkstraAlgorithm solution = new DijkstraAlgorithm();
+                    GraphNode ps = getPowerSourceNode();
+                   // ps = solution.findTheOptimumSolution(ps, nodes.size());
+                    //resultNodes.add(result);
+//                    showResult();
+                    snack(v, "No Problem Bro");
+                  List<GraphNode> adj=  nodes.get(0).adjacentNodes();
+
+                    twTest.setText(adj.get(0).getName() + " " + adj.get(0).getType());
+                } else {
+                    alertNoPowerSource();
+                }
+            }
+            if (btnSubmitState.equals(SUBMITBUTTONSTATE_RESULTSHOWING)) {
+//                relativeLayout.setVisibility(View.VISIBLE);
+//                resultRelativeLayout.setVisibility(View.GONE);
+//                btnSubmitState = SUBMITBUTTONSTATE_UNPROCCESSEDGRAPH;
+            }
+            if (btnSubmitState.equals(SUBMITBUTTONSTATE_UNPROCCESSEDGRAPH)) {
+//                relativeLayout.setVisibility(View.GONE);
+//                resultRelativeLayout.setVisibility(View.VISIBLE);
+//                btnSubmitState = SUBMITBUTTONSTATE_RESULTSHOWING;
+            }
+
         });
 
 //=====================================================End of Submit============//
@@ -218,7 +252,6 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         btn.setText("" + verticesCount);
         btn.setPadding(0, 0, 0, 1);
         verticesCount++;
-
         relativeLayout.addView(btn);
         buttons.add(btn);
         btn.setOnClickListener((view) -> {
@@ -249,7 +282,6 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                 alertRemoveBtn(id);
             }
         });
-
     }
 
     //========================================================End of Create Button======//
@@ -326,6 +358,17 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         alert.show();
     }
 
+
+    private void alertNoPowerSource() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Place A PowerSource!")
+                .setCancelable(false).
+                setNegativeButton("Ok", (dialog, which) -> dialog.cancel());
+        AlertDialog alert = builder.create();
+        alert.setTitle("No Connected PowerSource Detected!" + getEmoji(0x26A0));
+        alert.show();
+    }
+
     //=======================================================End of Alerts======//
     private void chooseOneFab(String chosen) {
         if (chosen.equals(JUNCTIONBOX)) {
@@ -371,7 +414,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             flagFabLine = true;
             flagFabKey = false;
             flagFabRemoveBtn = false;
-            fabLine.getBackground().setAlpha(200);
+            fabLine.getBackground().setAlpha(150);
             fabPowerSource.getBackground().setAlpha(255);
             fabKey.getBackground().setAlpha(255);
             fabJunctionBox.getBackground().setAlpha(255);
@@ -387,7 +430,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             fabPowerSource.getBackground().setAlpha(255);
             fabKey.getBackground().setAlpha(255);
             fabJunctionBox.getBackground().setAlpha(255);
-            fabRemoveBtn.getBackground().setAlpha(200);
+            fabRemoveBtn.getBackground().setAlpha(150);
         }
     }
 
@@ -525,18 +568,16 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             GraphNodeType type = findGraphNodeType(id);
             String name = String.valueOf(id);
             GraphNode node = new GraphNode(name, type);
-            nodes.add(node);
-        }
-        for (GraphNode node : nodes) {
             for (int[] connection : connected) {
                 if (node.getName().equals(String.valueOf(connection[0]))) {
-                    GraphNode secondNode = new GraphNode(String.valueOf(connection[1]),
+                    GraphNode secondNode = new
+                            GraphNode(String.valueOf(connection[1]),
                             findGraphNodeType(connection[1]));
                     node.addAdjacent(secondNode, connection[2]);
                 }
             }
+            nodes.add(node);
         }
-
     }
 
     private int btnPowerSourceId() {
@@ -551,7 +592,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
 
     private GraphNode getPowerSourceNode() {
         for (GraphNode node : nodes) {
-            if (node.getName().equals(String.valueOf(btnPowerSourceId()))) {
+            if (node.getType() == findGraphNodeType(btnPowerSourceId())) {
                 return node;
             }
         }
@@ -600,5 +641,105 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         imageViews.remove(index);
         textViews.remove(index);
         connected.remove(index);
+    }
+
+    private boolean powerSourceAvailability() {
+        for (float[] vloc : vLocation) {
+            if (vloc[2] == TYPE_POWERSOURCE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    private void showResult() {
+        makeResultNodes();
+        twTest.setText(resultNodes.get(2).getType() + "");
+        setAllButtonsOnResultLayout();
+    }
+
+    private void makeResultNodes() {
+        while (!allNodesCleared()) {
+            List<GraphNode> temporaryResultList = new ArrayList<>(resultNodes);
+            for (GraphNode node : temporaryResultList) {
+                List<GraphNode> tmplist = new ArrayList<>(node.adjacentNodes());
+                for (GraphNode insideNode : tmplist) {
+                    if (!temporaryResultList.contains(insideNode)) {
+                        resultNodes.add(insideNode);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isNodeCleared(GraphNode node) {
+        List<GraphNode> tmplist = node.adjacentNodes();
+        for (GraphNode tmps : tmplist) {
+            if (!resultNodes.contains(tmps)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean allNodesCleared() {
+        for (GraphNode node : resultNodes) {
+            if (!isNodeCleared(node)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void putButton(GraphNodeType type, float x, float y) {
+        Button btn = new Button(this);
+        int btnSize = 80;
+        RelativeLayout.LayoutParams lp
+                = new RelativeLayout.LayoutParams(btnSize, btnSize);
+        btn.setLayoutParams(lp);
+        btn.setX(x - btnSize / 2);
+        btn.setY(y - btnSize / 2);
+        if (type == GraphNodeType.JUNCTION_BOX) {
+            btn.setBackgroundResource(R.drawable.junction_box);
+        }
+        if (type == GraphNodeType.POWER_SOURCE) {
+
+            btn.setBackgroundResource(R.drawable.power_source);
+        }
+        if (type == GraphNodeType.SWITCH) {
+            btn.setBackgroundResource(R.drawable.key);
+        }
+        relativeLayout.addView(btn);
+    }
+
+    private void setAllButtonsOnResultLayout() {
+        for (GraphNode node : resultNodes) {
+            int btnId = Integer.parseInt(node.getName());
+            float[] arr = vLocation.get(btnId);
+            float x = arr[0];
+            float y = arr[1];
+            GraphNodeType type = findGraphNodeType(btnId);
+            putButton(type, x, y);
+        }
+    }
+
+    private void makeButtonsInvisible() {
+        for (Button btns : buttons) {
+            btns.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void makeTextViewsInvisible() {
+        for (TextView tw : textViews) {
+            tw.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void makeImagieviewsInvisible() {
+        for (ImageView iv : imageViews) {
+            iv.setVisibility(View.INVISIBLE);
+        }
     }
 }
