@@ -3,7 +3,7 @@ package com.hugs4bugs.simkeshi.service.classes;
 import com.hugs4bugs.simkeshi.core.GraphEdge;
 import com.hugs4bugs.simkeshi.core.GraphNode;
 import com.hugs4bugs.simkeshi.core.GraphNodeType;
-import com.hugs4bugs.simkeshi.core.components.PrimAlgorithm;
+import com.hugs4bugs.simkeshi.core.components.DijkstraAlgorithm;
 import com.hugs4bugs.simkeshi.core.helper.GraphEdgeHelper;
 import com.hugs4bugs.simkeshi.core.helper.GraphNodeHelper;
 import com.hugs4bugs.simkeshi.service.interfaces.PowerSourceService;
@@ -16,11 +16,11 @@ import java.util.*;
 public class PowerSourceServiceImpl implements PowerSourceService {
 
     @Autowired
-    private PrimAlgorithm primAlgorithm;
+    private DijkstraAlgorithm dijkstraAlgorithm;
 
     @Override
     public List<GraphEdgeHelper> findTheOptimumSolution(List<GraphNodeHelper> graphNodes, List<GraphEdgeHelper> graphEdges) {
-        GraphNode head = primAlgorithm.findTheOptimumSolution(createGraph(graphNodes, graphEdges));
+        GraphNode head = dijkstraAlgorithm.findTheOptimumSolution(createGraph(graphNodes, graphEdges), graphNodes.size());
         return getGraphEdges(head);
     }
 
