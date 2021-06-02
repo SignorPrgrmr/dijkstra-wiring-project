@@ -30,6 +30,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +111,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         btnSubmit.setOnClickListener((v) -> {
             if (btnSubmitState.equals(SUBMITBUTTONSTATE_SUBMIT)) {
                 if (powerSourceAvailability()) {
+
                     btnSubmitState = SUBMITBUTTONSTATE_RESULTSHOWING;
                     btnSubmit.setText("Change");
                     makeButtonsInvisible();
@@ -118,12 +120,9 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                     GraphNode head = makeGraph();
                     DijkstraAlgorithm solution = new DijkstraAlgorithm();
                     head = solution.findTheOptimumSolution(head, buttons.size());
-                    //resultNodes.add(result);
-//                    showResult();
-                    snack(v, "No Problem Bro");
-                  List<GraphNode> adj=  nodes.get(0).adjacentNodes();
+                    resultNodes.add(head);
+                    showResult();
 
-                    twTest.setText(adj.get(0).getName() + " " + adj.get(0).getType());
                 } else {
                     alertNoPowerSource();
                 }
@@ -579,9 +578,10 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             }
             nodes.add(node);
         }*/
+
         GraphNode head = null;
+        Map<Integer, GraphNode> nodes = new HashMap<>();
         for (Button btn : buttons) {
-            Map<Integer, GraphNode> nodes = new HashMap<>();
             int id = btn.getId();
             GraphNodeType type = findGraphNodeType(id);
             String name = String.valueOf(id);
@@ -592,7 +592,11 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             }
         }
         for (int[] connection : connected) {
-            nodes.get(connection[0]).addAdjacent(nodes.get(connection[1]), connection[2]);
+            try {
+                nodes.get(connection[0]).addAdjacent(nodes.get(connection[1]), connection[2]);
+            } catch (Exception e) {
+                twTest.setText(Arrays.toString(connection));
+            }
         }
         return head;
     }
