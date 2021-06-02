@@ -30,7 +30,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CanvasTest extends AppCompatActivity implements ICanvasTest {
 
@@ -113,10 +115,9 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                     makeButtonsInvisible();
                     makeImagieviewsInvisible();
                     makeTextViewsInvisible();
-                    makeGraph();
+                    GraphNode head = makeGraph();
                     DijkstraAlgorithm solution = new DijkstraAlgorithm();
-                    GraphNode ps = getPowerSourceNode();
-                   // ps = solution.findTheOptimumSolution(ps, nodes.size());
+                    head = solution.findTheOptimumSolution(head, nodes.size());
                     //resultNodes.add(result);
 //                    showResult();
                     snack(v, "No Problem Bro");
@@ -562,8 +563,8 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         return null;
     }
 
-    private void makeGraph() {
-        for (Button btns : buttons) {
+    private GraphNode makeGraph() {
+        /*for (Button btns : buttons) {
             int id = btns.getId();
             GraphNodeType type = findGraphNodeType(id);
             String name = String.valueOf(id);
@@ -577,7 +578,23 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                 }
             }
             nodes.add(node);
+        }*/
+        GraphNode head = null;
+        for (Button btn : buttons) {
+            Map<Integer, GraphNode> nodes = new HashMap<>();
+            int id = btn.getId();
+            GraphNodeType type = findGraphNodeType(id);
+            String name = String.valueOf(id);
+            GraphNode newNode = new GraphNode(name, type);
+            nodes.put(id, newNode);
+            if (type == GraphNodeType.POWER_SOURCE) {
+                head = newNode;
+            }
         }
+        for (int[] connection : connected) {
+            nodes.get(connection[0]).addAdjacent(nodes.get(connection[1]), connection[2]);
+        }
+        return head;
     }
 
     private int btnPowerSourceId() {
