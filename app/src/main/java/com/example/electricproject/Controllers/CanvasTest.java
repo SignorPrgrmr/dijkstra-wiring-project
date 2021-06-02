@@ -117,7 +117,7 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                     makeTextViewsInvisible();
                     GraphNode head = makeGraph();
                     DijkstraAlgorithm solution = new DijkstraAlgorithm();
-                    head = solution.findTheOptimumSolution(head, nodes.size());
+                    head = solution.findTheOptimumSolution(head, buttons.size());
                     //resultNodes.add(result);
 //                    showResult();
                     snack(v, "No Problem Bro");
