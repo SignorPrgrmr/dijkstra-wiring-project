@@ -44,7 +44,10 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     private int verticesCount;
     private ArrayList<float[]> vLocation;
     private ArrayList<int[]> connected;
+    private ArrayList<int[]> resultConnected;
+    private ArrayList<int[]> oldInputGraphConnected;
     private ArrayList<Button> buttons;
+    private ArrayList<Button> resultButtons;
     private ArrayList<GraphNode> nodes;
     private ArrayList<GraphNode> resultNodes;
     private FloatingActionButton fabDraw;
@@ -92,12 +95,15 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         fabLine = findViewById(R.id.fab_line);
         fabRemoveBtn = findViewById(R.id.fab_remove_btn);
         buttons = new ArrayList<>();
+        resultButtons = new ArrayList<>();
+        resultConnected = new ArrayList<>();
         vLocation = new ArrayList<>();
         connected = new ArrayList<>();
         nodes = new ArrayList<>();
         imageViews = new ArrayList<>();
         textViews = new ArrayList<>();
         resultNodes = new ArrayList<>();
+        oldInputGraphConnected = new ArrayList<>();
         flagFabKey = false;
         flagFabPowerSource = false;
         flagFabJunctionBox = false;
@@ -111,18 +117,14 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         btnSubmit.setOnClickListener((v) -> {
             if (btnSubmitState.equals(SUBMITBUTTONSTATE_SUBMIT)) {
                 if (powerSourceAvailability()) {
-
                     btnSubmitState = SUBMITBUTTONSTATE_RESULTSHOWING;
                     btnSubmit.setText("Change");
-                    makeButtonsInvisible();
-                    makeImagieviewsInvisible();
-                    makeTextViewsInvisible();
+                    inputGraphInvisibility(false);
                     GraphNode head = makeGraph();
                     DijkstraAlgorithm solution = new DijkstraAlgorithm();
                     head = solution.findTheOptimumSolution(head, buttons.size());
                     resultNodes.add(head);
                     showResult();
-
                 } else {
                     alertNoPowerSource();
                 }
@@ -529,12 +531,11 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         tw.setLayoutParams(lp_tw);
         tw.setText("" + weight);
         tw.setTextSize(20);
+        iv.setBackgroundResource(R.drawable.line);
         if (x * y >= 0) {
-            iv.setBackgroundResource(R.drawable.line);
             iv.setRotation(angle);
 
         } else {
-            iv.setBackgroundResource(R.drawable.line);
             iv.setRotation(-1 * angle);
         }
         imageViews.add(iv);
@@ -563,22 +564,6 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     }
 
     private GraphNode makeGraph() {
-        /*for (Button btns : buttons) {
-            int id = btns.getId();
-            GraphNodeType type = findGraphNodeType(id);
-            String name = String.valueOf(id);
-            GraphNode node = new GraphNode(name, type);
-            for (int[] connection : connected) {
-                if (node.getName().equals(String.valueOf(connection[0]))) {
-                    GraphNode secondNode = new
-                            GraphNode(String.valueOf(connection[1]),
-                            findGraphNodeType(connection[1]));
-                    node.addAdjacent(secondNode, connection[2]);
-                }
-            }
-            nodes.add(node);
-        }*/
-
         GraphNode head = null;
         Map<Integer, GraphNode> nodes = new HashMap<>();
         for (Button btn : buttons) {
@@ -677,8 +662,89 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
     @SuppressLint("SetTextI18n")
     private void showResult() {
         makeResultNodes();
-        twTest.setText(resultNodes.get(2).getType() + "");
         setAllButtonsOnResultLayout();
+        drawAllLinesOnResultLayout();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void putButton(GraphNodeType type, float x, float y, int id) {
+        Button btn = new Button(this);
+        int btnSize = 80;
+        RelativeLayout.LayoutParams lp
+                = new RelativeLayout.LayoutParams(btnSize, btnSize);
+        btn.setLayoutParams(lp);
+        btn.setX(x - btnSize / 2);
+        btn.setY(y - btnSize / 2);
+        if (type == GraphNodeType.JUNCTION_BOX) {
+            btn.setBackgroundResource(R.drawable.junction_box);
+        }
+        if (type == GraphNodeType.POWER_SOURCE) {
+
+            btn.setBackgroundResource(R.drawable.power_source);
+        }
+        if (type == GraphNodeType.SWITCH) {
+            btn.setBackgroundResource(R.drawable.key);
+        }
+        btn.setText("" + id);
+        btn.setPadding(0, 0, 0, 1);
+        resultButtons.add(btn);
+        relativeLayout.addView(btn);
+    }
+
+    private void setAllButtonsOnResultLayout() {
+        for (GraphNode node : resultNodes) {
+            int btnId = Integer.parseInt(node.getName());
+            float[] arr = vLocation.get(btnId);
+            float x = arr[0];
+            float y = arr[1];
+            GraphNodeType type = findGraphNodeType(btnId);
+            putButton(type, x, y, btnId);
+        }
+    }
+
+    private void makeButtonsInvisible(boolean flag) {
+        if (flag) {
+            for (Button btns : buttons) {
+                btns.setVisibility(View.VISIBLE);
+            }
+        } else {
+            for (Button btns : buttons) {
+                btns.setVisibility(View.INVISIBLE);
+            }
+        }
+
+    }
+
+    private void makeTextViewsInvisible(boolean flag) {
+        if (flag) {
+            for (TextView tw : textViews) {
+                tw.setVisibility(View.VISIBLE);
+            }
+        } else {
+            for (TextView tw : textViews) {
+                tw.setVisibility(View.INVISIBLE);
+            }
+        }
+
+    }
+
+    private void makeImageViewsInvisible(boolean flag) {
+        if (flag) {
+            for (ImageView iv : imageViews) {
+                iv.setVisibility(View.VISIBLE);
+            }
+        } else {
+            for (ImageView iv : imageViews) {
+                iv.setVisibility(View.INVISIBLE);
+            }
+        }
+
+    }
+
+    private void inputGraphInvisibility(boolean flag) {
+        makeTextViewsInvisible(flag);
+        makeImageViewsInvisible(flag);
+        makeButtonsInvisible(flag);
     }
 
     private void makeResultNodes() {
@@ -714,53 +780,94 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
         return true;
     }
 
-    private void putButton(GraphNodeType type, float x, float y) {
-        Button btn = new Button(this);
-        int btnSize = 80;
-        RelativeLayout.LayoutParams lp
-                = new RelativeLayout.LayoutParams(btnSize, btnSize);
-        btn.setLayoutParams(lp);
-        btn.setX(x - btnSize / 2);
-        btn.setY(y - btnSize / 2);
-        if (type == GraphNodeType.JUNCTION_BOX) {
-            btn.setBackgroundResource(R.drawable.junction_box);
+    private void drawLine(int btn1Id, int btn2Id, int weight, int type) {
+        float x1 = vLocation.get(btn1Id)[0];
+        float y1 = vLocation.get(btn1Id)[1];
+        float x2 = vLocation.get(btn2Id)[0];
+        float y2 = vLocation.get(btn2Id)[1];
+        relativeLayout = findViewById(R.id.relative_layout);
+        //imageview for edge
+        ImageView iv = new ImageView(this);
+        //textview for weight
+        TextView tw = new TextView(this);
+        int x = (int) (x2 - x1);
+        int y = (int) (y2 - y1);
+        double absX = Math.abs(x);
+        double absY = Math.abs(y);
+        int lineLength = (int) Math.sqrt(Math.pow(absX, 2) + Math.pow(absY, 2));
+        // -_-
+        float angle = (float) Math.toDegrees(Math.atan(absY / absX));
+        RelativeLayout.LayoutParams lp_iv = new RelativeLayout.LayoutParams(lineLength, 20);
+        RelativeLayout.LayoutParams lp_tw = new
+                RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        iv.setX((float) (Math.min(x1, x2) - (lineLength - absX) / 2));
+        iv.setY((float) (Math.min(y1, y2) + (absY / 2)));
+        tw.setX((float) (Math.min(x1, x2) + (absX / 2)));
+        tw.setY((float) (Math.min(y1, y2) + (absY / 2) - 100));
+        iv.setLayoutParams(lp_iv);
+        tw.setLayoutParams(lp_tw);
+        tw.setText("" + weight);
+        tw.setTextSize(20);
+        if (type == LINEINPUT) {
+            iv.setBackgroundResource(R.drawable.line);
         }
-        if (type == GraphNodeType.POWER_SOURCE) {
-
-            btn.setBackgroundResource(R.drawable.power_source);
+        if (type == LINERESULT) {
+            iv.setBackgroundResource(R.drawable.line_result);
         }
-        if (type == GraphNodeType.SWITCH) {
-            btn.setBackgroundResource(R.drawable.key);
+        if (x * y >= 0) {
+            iv.setRotation(angle);
+        } else {
+            iv.setRotation(-1 * angle);
         }
-        relativeLayout.addView(btn);
+        relativeLayout.addView(iv);
+        relativeLayout.addView(tw);
     }
 
-    private void setAllButtonsOnResultLayout() {
+    private void drawAllLinesOnResultLayout() {
+        makeResultConnected();
+        makeOldInputGraphLines();
+        for (int[] oldcon : oldInputGraphConnected) {
+            drawLine(oldcon[0], oldcon[1], oldcon[2], LINEINPUT);
+        }
+        for (int[] rescon : resultConnected) {
+            drawLine(rescon[0], rescon[1], rescon[2], LINERESULT);
+        }
+
+    }
+
+    private void makeResultConnected() {
         for (GraphNode node : resultNodes) {
-            int btnId = Integer.parseInt(node.getName());
-            float[] arr = vLocation.get(btnId);
-            float x = arr[0];
-            float y = arr[1];
-            GraphNodeType type = findGraphNodeType(btnId);
-            putButton(type, x, y);
+            for (GraphEdge edge : node.getEdges()) {
+                int[] newEdge = new int[]{Integer.parseInt(edge.getSecondNode().getName()),
+                        Integer.parseInt(edge.getFirstNode().getName()),
+                        edge.getCost()};
+                if (!resultConnected.contains(newEdge)) {
+                    resultConnected.add(new int[]{
+                            Integer.parseInt(edge.getFirstNode().getName()),
+                            Integer.parseInt(edge.getSecondNode().getName()),
+                            edge.getCost()
+                    });
+                }
+            }
         }
     }
 
-    private void makeButtonsInvisible() {
-        for (Button btns : buttons) {
-            btns.setVisibility(View.INVISIBLE);
-        }
-    }
+    private void makeOldInputGraphLines() {
+        for (int[] connection : connected) {
+            int[] tmp = new int[3];
+            tmp[0] = connection[1];
+            tmp[1] = connection[0];
+            tmp[2] = connection[2];
+            for (int[] resCon : resultConnected) {
+                if (!Arrays.equals(connection, resCon)) {
+                    if (!Arrays.equals(tmp, resCon)) {
+                        oldInputGraphConnected.add(connection);
+                    }
+                }
 
-    private void makeTextViewsInvisible() {
-        for (TextView tw : textViews) {
-            tw.setVisibility(View.INVISIBLE);
+            }
         }
-    }
 
-    private void makeImagieviewsInvisible() {
-        for (ImageView iv : imageViews) {
-            iv.setVisibility(View.INVISIBLE);
-        }
     }
 }

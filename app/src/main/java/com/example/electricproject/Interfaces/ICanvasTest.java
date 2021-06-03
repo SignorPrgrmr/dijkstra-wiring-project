@@ -12,6 +12,7 @@ public interface ICanvasTest {
     String SUBMITBUTTONSTATE_SUBMIT = "submit";
     String SUBMITBUTTONSTATE_RESULTSHOWING = "result";
     String SUBMITBUTTONSTATE_UNPROCCESSEDGRAPH = "graph";
-
+    int LINERESULT = 545;
+    int LINEINPUT = 645;
 
 }
