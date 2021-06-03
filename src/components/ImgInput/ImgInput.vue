@@ -39,10 +39,26 @@ export default {
         body: ImageFormData
       }).then(response =>{
         if (response.ok){
-          const GraphImageObj = response.json()
-          this.$emit('makeGraph' , GraphImageObj)
+          return response.json()
         }
+      }).then(json=>{
+        this.$emit('makeGraph' , json)
       })
+      // test
+      // const json = {
+      //   graph : {
+      //     nodes : ['P' , 'J1' , 'J2' , 'J3' , 'J4' , 'S1' , 'S2'],
+      //     edges : [
+      //       {firstNode : 'P' , secondNode : 'J1' , cost : 12} ,
+      //       {firstNode : 'J2' , secondNode : 'S1' , cost : 5} ,
+      //       {firstNode : 'S1' , secondNode : 'J4' , cost : 15} ,
+      //       {firstNode : 'J4' , secondNode : 'S2' , cost : 18} ,
+      //       {firstNode : 'S2' , secondNode : 'J3' , cost : 25} ,
+      //     ]
+      //   },
+      //   image : 'E:\\Background\\2018-Bozkurt-Wallpaper.jpg'
+      // }
+      //   this.$emit('makeGraph' , json)
     }
   },
 };

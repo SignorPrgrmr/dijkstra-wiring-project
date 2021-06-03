@@ -43,7 +43,7 @@ export default {
     },
     MakeGraph(obj){
       this.$refs.preview.DrawGraph(obj)
-    }
+    },
   }
 
 }
