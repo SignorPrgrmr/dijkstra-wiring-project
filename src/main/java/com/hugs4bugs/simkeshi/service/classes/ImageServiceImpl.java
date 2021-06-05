@@ -17,7 +17,8 @@ public class ImageServiceImpl implements ImageService {
     private ImageGraphImp imageGraphImp;
 
     @Override
-    public GraphNode findTheOptimumSolution(GraphNode head, int size) {
+    public GraphNode findTheOptimumSolution(GraphNode head) {
+        int size = graphSize(head);
         return dijkstraAlgorithm.findTheOptimumSolution(head, size);
     }
 
@@ -62,9 +63,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public GraphNode image_9() {
-        return imageGraphImp.image_9();
-    }
+    public GraphNode image_9() { return imageGraphImp.image_9(); }
 
     @Override
     public GraphNode image_11() {
@@ -106,4 +105,7 @@ public class ImageServiceImpl implements ImageService {
         return imageGraphImp.image_20();
     }
 
+    private int graphSize(GraphNode head){
+        return 0;
+    }
 }

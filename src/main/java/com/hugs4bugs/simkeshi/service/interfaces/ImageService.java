@@ -3,7 +3,7 @@ package com.hugs4bugs.simkeshi.service.interfaces;
 import com.hugs4bugs.simkeshi.core.GraphNode;
 
 public interface ImageService {
-    GraphNode findTheOptimumSolution(GraphNode head, int size);
+    GraphNode findTheOptimumSolution(GraphNode head);
     GraphNode image_1();
     GraphNode image_2();
     GraphNode image_3();
