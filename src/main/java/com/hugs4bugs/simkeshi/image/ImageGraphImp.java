@@ -1,7 +1,9 @@
 package com.hugs4bugs.simkeshi.image;
 
 import com.hugs4bugs.simkeshi.core.*;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ImageGraphImp {
 
     /*
@@ -9,7 +11,7 @@ public class ImageGraphImp {
     axs haye kamili da ham GitLab goyoram ham da telegram nan yollaram, omid ast ke mofid vagee shavad.
      */
 
-    static void image_1() {
+    public static GraphNode image_1() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -50,9 +52,11 @@ public class ImageGraphImp {
         JB11.addAdjacent(SW1, 280);
         SW1.addAdjacent(JB12, 115);
         JB12.addAdjacent(JB13, 115);
+
+        return powerSource;
     }
 
-    static void image_2() {
+    public static GraphNode image_2() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -91,9 +95,11 @@ public class ImageGraphImp {
         JB5.addAdjacent(JB4, 60);
         JB5.addAdjacent(JB11, 430);
         JB11.addAdjacent(JB12, 80);
+
+        return powerSource;
     }
 
-    static void image_3() {
+    public static GraphNode image_3() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -134,9 +140,11 @@ public class ImageGraphImp {
         JB4.addAdjacent(SW2, 300);
         SW2.addAdjacent(JB3, 130);
         JB3.addAdjacent(JB2, 120);
+
+        return powerSource;
     }
 
-    static void image_4() {
+    public static GraphNode image_4() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -179,9 +187,11 @@ public class ImageGraphImp {
         JB4.addAdjacent(JB5, 55);
         JB4.addAdjacent(JB3, 415);
         JB3.addAdjacent(JB2, 80);
+
+        return powerSource;
     }
 
-    static void image_5() {
+    public static GraphNode image_5() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -237,9 +247,11 @@ public class ImageGraphImp {
         JB17.addAdjacent(JB18, 170);
         JB18.addAdjacent(JB19, 350);
         JB19.addAdjacent(JB20, 155);
+
+        return powerSource;
     }
 
-    static void image_6() {
+    public static GraphNode image_6() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -280,9 +292,11 @@ public class ImageGraphImp {
         SW3.addAdjacent(JB12, 75);
         JB12.addAdjacent(JB13, 90);
         JB12.addAdjacent(JB14, 160);
+
+        return powerSource;
     }
 
-    static void image_7() {
+    public static GraphNode image_7() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -328,9 +342,11 @@ public class ImageGraphImp {
         SW2.addAdjacent(JB6, 50);
         JB4.addAdjacent(JB3, 125);
         JB3.addAdjacent(JB2, 170);
+
+        return powerSource;
     }
 
-    static void image_8() {
+    public static GraphNode image_8() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -381,9 +397,11 @@ public class ImageGraphImp {
         JB11.addAdjacent(JB12, 290);
         JB12.addAdjacent(JB15, 260);
         JB15.addAdjacent(JB14, 160);
+
+        return powerSource;
     }
 
-    static void image_9() {
+    public static GraphNode image_9() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -422,9 +440,11 @@ public class ImageGraphImp {
         JB9.addAdjacent(SW3, 190);
         SW3.addAdjacent(JB14, 80);
         JB9.addAdjacent(JB10, 500);
+
+        return powerSource;
     }
 
-    static void image_11() {
+    public static GraphNode image_11() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -478,9 +498,11 @@ public class ImageGraphImp {
         JB4.addAdjacent(JB3, 345);
         JB3.addAdjacent(SW1, 475);
         SW1.addAdjacent(JB2, 40);
+
+        return powerSource;
     }
 
-    static void image_12() {
+    public static GraphNode image_12() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -531,9 +553,11 @@ public class ImageGraphImp {
         JB17.addAdjacent(JB4, 450);
         JB4.addAdjacent(SW1, 330);
         SW1.addAdjacent(JB2, 70);
+
+        return powerSource;
     }
 
-    static void image_13() {
+    public static GraphNode image_13() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -580,9 +604,11 @@ public class ImageGraphImp {
         JB10.addAdjacent(JB9, 520);
         JB9.addAdjacent(SW4, 35);
         SW4.addAdjacent(JB8, 60);
+
+        return powerSource;
     }
 
-    static void image_14() {
+    public static GraphNode image_14() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -639,9 +665,11 @@ public class ImageGraphImp {
         JB4.addAdjacent(JB3, 230);
         JB3.addAdjacent(SW1, 450);
         SW1.addAdjacent(JB2, 85);
+
+        return powerSource;
     }
 
-    static void image_17() {
+    public static GraphNode image_17() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -703,9 +731,11 @@ public class ImageGraphImp {
         JB18.addAdjacent(JB17, 430);
         JB17.addAdjacent(SW4, 310);
         SW4.addAdjacent(JB16, 60);
+
+        return powerSource;
     }
 
-    static void image_18() {
+    public static GraphNode image_18() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -768,9 +798,11 @@ public class ImageGraphImp {
         JB9.addAdjacent(JB8, 90);
         JB9.addAdjacent(SW3, 370);
         SW3.addAdjacent(JB12, 110);
+
+        return powerSource;
     }
 
-    static void image_19() {
+    public static GraphNode image_19() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -838,9 +870,11 @@ public class ImageGraphImp {
         SW6.addAdjacent(JB16, 50);
         JB15.addAdjacent(JB14, 225);
         JB14.addAdjacent(JB13, 310);
+
+        return powerSource;
     }
 
-    static void image_20() {
+    public static GraphNode image_20() {
         GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
@@ -908,7 +942,7 @@ public class ImageGraphImp {
         JB13.addAdjacent(JB23, 800);
         JB23.addAdjacent(JB21, 210);
         System.out.println(JB14.getEdges());
+
+        return powerSource;
     }
-
-
 }

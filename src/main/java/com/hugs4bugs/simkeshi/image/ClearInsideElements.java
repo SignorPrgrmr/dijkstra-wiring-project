@@ -26,6 +26,9 @@ public class ClearInsideElements {
 
     private BufferedImage img;
 
+    public ClearInsideElements() {
+    }
+
     public ClearInsideElements(File file) throws IOException {
         this.img = ImageIO.read(file);
     }
