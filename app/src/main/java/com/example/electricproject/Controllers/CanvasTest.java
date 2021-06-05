@@ -118,7 +118,12 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
             if (btnSubmitState.equals(SUBMITBUTTONSTATE_SUBMIT)) {
                 if (powerSourceAvailability()) {
                     btnSubmitState = SUBMITBUTTONSTATE_RESULTSHOWING;
-                    btnSubmit.setText("Change");
+                    btnClear.setText("New");
+                    fabJunctionBox.setClickable(false);
+                    fabKey.setClickable(false);
+                    fabPowerSource.setClickable(false);
+                    fabDraw.setClickable(false);
+                    fabRemoveBtn.setClickable(false);
                     inputGraphInvisibility(false);
                     GraphNode head = makeGraph();
                     DijkstraAlgorithm solution = new DijkstraAlgorithm();
@@ -128,16 +133,6 @@ public class CanvasTest extends AppCompatActivity implements ICanvasTest {
                 } else {
                     alertNoPowerSource();
                 }
-            }
-            if (btnSubmitState.equals(SUBMITBUTTONSTATE_RESULTSHOWING)) {
-//                relativeLayout.setVisibility(View.VISIBLE);
-//                resultRelativeLayout.setVisibility(View.GONE);
-//                btnSubmitState = SUBMITBUTTONSTATE_UNPROCCESSEDGRAPH;
-            }
-            if (btnSubmitState.equals(SUBMITBUTTONSTATE_UNPROCCESSEDGRAPH)) {
-//                relativeLayout.setVisibility(View.GONE);
-//                resultRelativeLayout.setVisibility(View.VISIBLE);
-//                btnSubmitState = SUBMITBUTTONSTATE_RESULTSHOWING;
             }
 
         });
