@@ -13,7 +13,7 @@ public class ImageGraphImp {
      */
 
     public static GraphNode image_1() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -58,7 +58,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_2() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -101,7 +101,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_3() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -146,7 +146,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_4() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -193,7 +193,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_5() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -253,7 +253,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_6() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -298,7 +298,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_7() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -348,7 +348,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_8() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -403,7 +403,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_9() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -446,7 +446,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_11() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -504,7 +504,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_12() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -559,7 +559,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_13() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -610,7 +610,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_14() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -671,7 +671,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_17() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -737,7 +737,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_18() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -804,7 +804,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_19() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);
@@ -876,7 +876,7 @@ public class ImageGraphImp {
     }
 
     public static GraphNode image_20() {
-        GraphNode powerSource = new GraphNode("Power Source", GraphNodeType.POWER_SOURCE);
+        GraphNode powerSource = new GraphNode("P", GraphNodeType.POWER_SOURCE);
 
         GraphNode JB1 = new GraphNode("JB1", GraphNodeType.JUNCTION_BOX);
         GraphNode JB2 = new GraphNode("JB2", GraphNodeType.JUNCTION_BOX);

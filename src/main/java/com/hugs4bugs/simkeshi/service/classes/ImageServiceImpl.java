@@ -33,8 +33,8 @@ public class ImageServiceImpl implements ImageService {
         List<GraphEdgeHelper> graphEdgeHelpers = getGraphEdges(head);
         List<GraphNodeHelper> graphNodeHelpers = getGraphNodes(head);
         Map<String, List<? extends Object>> map = new HashMap<>();
-        map.put("nodes : ", graphNodeHelpers);
-        map.put("edges : ", graphEdgeHelpers);
+        map.put("nodes", graphNodeHelpers);
+        map.put("edges", graphEdgeHelpers);
         return map;
     }
 
@@ -153,8 +153,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     private static int graphSize(GraphNode head) {
-        List<GraphNode> nodeList = null;
-        List<GraphEdge> edgeList = null;
+        List<GraphNode> nodeList = new LinkedList<>();
+        List<GraphEdge> edgeList = new LinkedList<>();
         List<GraphEdge> headEdges = head.getEdges();
         nodeList.add(head);
         for (GraphEdge edge : headEdges) {
@@ -166,7 +166,7 @@ public class ImageServiceImpl implements ImageService {
 
     private static void secondNodeEdges(GraphEdge edge, List<GraphEdge> edgeList, List<GraphNode> nodeList, GraphNode startNode) {
         GraphNode secondNode;
-        List<GraphEdge> currentEdges = null;
+        List<GraphEdge> currentEdges = new LinkedList<>();
         if (edge.getFirstNode() == startNode)
             secondNode = edge.getSecondNode();
         else secondNode = edge.getFirstNode();

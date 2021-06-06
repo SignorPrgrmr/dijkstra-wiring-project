@@ -24,7 +24,7 @@ public class ImageController {
 
     @PostMapping("/image")
     public Map<String, List<? extends Object>> sendImage(@RequestParam("image") MultipartFile file) {
-        int name = Integer.parseInt(file.getName().split(".")[0]);
+        int name = Integer.parseInt(file.getOriginalFilename().split("\\.")[0]);
         return service.findTheOptimumSolution(name);
     }
 }
