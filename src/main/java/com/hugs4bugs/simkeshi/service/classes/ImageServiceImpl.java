@@ -108,7 +108,7 @@ public class ImageServiceImpl implements ImageService {
         return imageGraphImp.image_20();
     }
 
-    public static int graphSize(GraphNode head) {
+    private static int graphSize(GraphNode head) {
         List<GraphNode> nodeList = null;
         List<GraphEdge> edgeList = null;
         List<GraphEdge> headEdges = head.getEdges();
@@ -138,4 +138,65 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
+    @Override
+    public GraphNode getGraphFromImage(int name) {
+        GraphNode graphNode;
+        switch (name){
+            case 1:
+                graphNode = imageGraphImp.image_1();
+                break;
+            case 2:
+                graphNode = imageGraphImp.image_2();
+                break;
+            case 3:
+                graphNode = imageGraphImp.image_3();
+                break;
+
+            case 4:
+                graphNode = imageGraphImp.image_4();
+                break;
+            case 5:
+                graphNode = imageGraphImp.image_5();
+                break;
+            case 6:
+                graphNode = imageGraphImp.image_6();
+                break;
+            case 7:
+                graphNode = imageGraphImp.image_7();
+                break;
+            case 8:
+                graphNode = imageGraphImp.image_8();
+                break;
+            case 9:
+                graphNode = imageGraphImp.image_9();
+                break;
+            case 11:
+                graphNode = imageGraphImp.image_11();
+                break;
+            case 12:
+                graphNode = imageGraphImp.image_12();
+                break;
+            case 13:
+                graphNode = imageGraphImp.image_13();
+                break;
+            case 14:
+                graphNode = imageGraphImp.image_14();
+                break;
+            case 17:
+                graphNode = imageGraphImp.image_17();
+                break;
+            case 18:
+                graphNode = imageGraphImp.image_18();
+                break;
+            case 19:
+                graphNode = imageGraphImp.image_19();
+                break;
+            case 20:
+                graphNode = imageGraphImp.image_20();
+                break;
+            default:
+                graphNode = null;
+        }
+        return graphNode;
+    }
 }
