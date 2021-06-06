@@ -22,25 +22,19 @@ public class ImageServiceImpl implements ImageService {
     private ImageGraphImp imageGraphImp;
 
     @Override
-    public Map<String, List<Object>> findTheOptimumSolution(int name) {
+    public Map<String, List<? extends Object>> findTheOptimumSolution(int name) {
         GraphNode head = getGraphFromImage(name);
         int size = graphSize(head);
         head = dijkstraAlgorithm.findTheOptimumSolution(head, size);
         return getMappedData(head);
     }
 
-    private Map<String, List<Object>> getMappedData(GraphNode head) {
+    private Map<String, List<? extends Object>> getMappedData(GraphNode head) {
         List<GraphEdgeHelper> graphEdgeHelpers = getGraphEdges(head);
         List<GraphNodeHelper> graphNodeHelpers = getGraphNodes(head);
-        List<Object> edgeList = new LinkedList<>();
-        List<Object> nodeList = new LinkedList<>();
-        for (GraphEdgeHelper helper : graphEdgeHelpers)
-            edgeList.add(helper);
-        for (GraphNodeHelper helper : graphNodeHelpers)
-            nodeList.add(helper);
-        Map<String, List<Object>> map = new HashMap<>();
-        map.put("nodes : ", nodeList);
-        map.put("edges : ", edgeList);
+        Map<String, List<? extends Object>> map = new HashMap<>();
+        map.put("nodes : ", graphNodeHelpers);
+        map.put("edges : ", graphEdgeHelpers);
         return map;
     }
 

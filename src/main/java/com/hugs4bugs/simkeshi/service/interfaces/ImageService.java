@@ -4,5 +4,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface ImageService {
-    Map<String, List<Object>> findTheOptimumSolution(int name);
+    Map<String, List<? extends Object>> findTheOptimumSolution(int name);
 }
