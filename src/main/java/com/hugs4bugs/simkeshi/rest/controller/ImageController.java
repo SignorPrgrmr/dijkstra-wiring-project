@@ -23,7 +23,7 @@ public class ImageController {
     }
 
     @PostMapping("/image")
-    public Map<String, List<Object>> sendImage(@RequestParam("image") MultipartFile file) {
+    public Map<String, List<? extends Object>> sendImage(@RequestParam("image") MultipartFile file) {
         int name = Integer.parseInt(file.getName().split(".")[0]);
         return service.findTheOptimumSolution(name);
     }
