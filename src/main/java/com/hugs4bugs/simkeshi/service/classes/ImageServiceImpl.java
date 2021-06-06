@@ -26,7 +26,7 @@ public class ImageServiceImpl implements ImageService {
         GraphNode head = getGraphFromImage(name);
         int size = graphSize(head);
         head = dijkstraAlgorithm.findTheOptimumSolution(head, size);
-        return null;
+        return getMappedData(head);
     }
 
     private Map<String, List<Object>> getMappedData(GraphNode head) {
@@ -92,69 +92,69 @@ public class ImageServiceImpl implements ImageService {
 
 
 
-    public GraphNode image_1() {
+    private GraphNode image_1() {
         return imageGraphImp.image_1();
     }
 
-    public GraphNode image_2() {
+    private GraphNode image_2() {
         return imageGraphImp.image_2();
     }
 
-    public GraphNode image_3() {
+    private GraphNode image_3() {
         return imageGraphImp.image_3();
     }
 
-    public GraphNode image_4() {
+    private GraphNode image_4() {
         return imageGraphImp.image_4();
     }
 
-    public GraphNode image_5() {
+    private GraphNode image_5() {
         return imageGraphImp.image_5();
     }
 
-    public GraphNode image_6() {
+    private GraphNode image_6() {
         return imageGraphImp.image_6();
     }
 
-    public GraphNode image_7() {
+    private GraphNode image_7() {
         return imageGraphImp.image_7();
     }
 
-    public GraphNode image_8() {
+    private GraphNode image_8() {
         return imageGraphImp.image_8();
     }
 
-    public GraphNode image_9() { return imageGraphImp.image_9(); }
+    private GraphNode image_9() { return imageGraphImp.image_9(); }
 
-    public GraphNode image_11() {
+    private GraphNode image_11() {
         return imageGraphImp.image_11();
     }
 
-    public GraphNode image_12() {
+    private GraphNode image_12() {
         return imageGraphImp.image_12();
     }
 
-    public GraphNode image_13() {
+    private GraphNode image_13() {
         return imageGraphImp.image_13();
     }
 
-    public GraphNode image_14() {
+    private GraphNode image_14() {
         return imageGraphImp.image_14();
     }
 
-    public GraphNode image_17() {
+    private GraphNode image_17() {
         return imageGraphImp.image_17();
     }
 
-    public GraphNode image_18() {
+    private GraphNode image_18() {
         return imageGraphImp.image_18();
     }
 
-    public GraphNode image_19() {
+    private GraphNode image_19() {
         return imageGraphImp.image_19();
     }
 
-    public GraphNode image_20() {
+    private GraphNode image_20() {
         return imageGraphImp.image_20();
     }
 
