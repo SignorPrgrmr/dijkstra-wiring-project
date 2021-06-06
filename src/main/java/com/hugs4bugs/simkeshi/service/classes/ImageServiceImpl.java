@@ -1,11 +1,14 @@
 package com.hugs4bugs.simkeshi.service.classes;
 
+import com.hugs4bugs.simkeshi.core.GraphEdge;
 import com.hugs4bugs.simkeshi.core.GraphNode;
 import com.hugs4bugs.simkeshi.core.components.DijkstraAlgorithm;
 import com.hugs4bugs.simkeshi.image.ImageGraphImp;
 import com.hugs4bugs.simkeshi.service.interfaces.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -105,7 +108,34 @@ public class ImageServiceImpl implements ImageService {
         return imageGraphImp.image_20();
     }
 
-    private int graphSize(GraphNode head){
-        return 0;
+    public static int graphSize(GraphNode head) {
+        List<GraphNode> nodeList = null;
+        List<GraphEdge> edgeList = null;
+        List<GraphEdge> headEdges = head.getEdges();
+        nodeList.add(head);
+        for (GraphEdge edge : headEdges) {
+            edgeList.add(edge);
+            secondNodeEdges(edge, edgeList, nodeList, head);
+        }
+        return nodeList.size();
     }
+
+    private static void secondNodeEdges(GraphEdge edge, List<GraphEdge> edgeList, List<GraphNode> nodeList, GraphNode startNode) {
+        GraphNode secondNode;
+        List<GraphEdge> currentEdges = null;
+        if (edge.getFirstNode() == startNode)
+            secondNode = edge.getSecondNode();
+        else secondNode = edge.getFirstNode();
+        if (!nodeList.contains(secondNode)) {
+            nodeList.add(secondNode);
+            for (GraphEdge currentEdge : secondNode.getEdges()) {
+                currentEdges.add(currentEdge);
+                if (!edgeList.contains(currentEdge)) {
+                    edgeList.add(currentEdge);
+                    secondNodeEdges(currentEdge, edgeList, nodeList, secondNode);
+                }
+            }
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.hugs4bugs.simkeshi.image;
 
-import com.hugs4bugs.simkeshi.core.*;
+import com.hugs4bugs.simkeshi.core.GraphNode;
+import com.hugs4bugs.simkeshi.core.GraphNodeType;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -945,4 +946,5 @@ public class ImageGraphImp {
 
         return powerSource;
     }
+
 }
