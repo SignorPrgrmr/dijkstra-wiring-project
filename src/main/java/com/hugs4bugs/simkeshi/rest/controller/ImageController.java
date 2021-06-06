@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 public class ImageController {
@@ -20,7 +23,8 @@ public class ImageController {
     }
 
     @PostMapping("/image")
-    public String sendImage(@RequestParam("image") MultipartFile file) {
-        return null;
+    public Map<String, List<Object>> sendImage(@RequestParam("image") MultipartFile file) {
+        int name = Integer.parseInt(file.getName().split(".")[0]);
+        return service.findTheOptimumSolution(name);
     }
 }
