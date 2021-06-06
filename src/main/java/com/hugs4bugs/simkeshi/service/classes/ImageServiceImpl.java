@@ -3,12 +3,14 @@ package com.hugs4bugs.simkeshi.service.classes;
 import com.hugs4bugs.simkeshi.core.GraphEdge;
 import com.hugs4bugs.simkeshi.core.GraphNode;
 import com.hugs4bugs.simkeshi.core.components.DijkstraAlgorithm;
+import com.hugs4bugs.simkeshi.core.helper.GraphEdgeHelper;
+import com.hugs4bugs.simkeshi.core.helper.GraphNodeHelper;
 import com.hugs4bugs.simkeshi.image.ImageGraphImp;
 import com.hugs4bugs.simkeshi.service.interfaces.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -20,90 +22,138 @@ public class ImageServiceImpl implements ImageService {
     private ImageGraphImp imageGraphImp;
 
     @Override
-    public GraphNode findTheOptimumSolution(GraphNode head) {
+    public Map<String, List<Object>> findTheOptimumSolution(int name) {
+        GraphNode head = getGraphFromImage(name);
         int size = graphSize(head);
-        return dijkstraAlgorithm.findTheOptimumSolution(head, size);
+        head = dijkstraAlgorithm.findTheOptimumSolution(head, size);
+        return null;
     }
 
-    @Override
+    private Map<String, List<Object>> getMappedData(GraphNode head) {
+        List<GraphEdgeHelper> graphEdgeHelpers = getGraphEdges(head);
+        List<GraphNodeHelper> graphNodeHelpers = getGraphNodes(head);
+        List<Object> edgeList = new LinkedList<>();
+        List<Object> nodeList = new LinkedList<>();
+        for (GraphEdgeHelper helper : graphEdgeHelpers)
+            edgeList.add(helper);
+        for (GraphNodeHelper helper : graphNodeHelpers)
+            nodeList.add(helper);
+        Map<String, List<Object>> map = new HashMap<>();
+        map.put("nodes : ", nodeList);
+        map.put("edges : ", edgeList);
+        return map;
+    }
+
+    private List<GraphNodeHelper> getGraphNodes(GraphNode head) {
+        Set<GraphNode> foundNode = new HashSet<>();
+        List<GraphNode> selectedNodes = new LinkedList<>();
+        foundNode.add(head);
+        selectedNodes.add(head);
+        while (selectedNodes.size() > 0) {
+            GraphNode pointer = selectedNodes.remove(0);
+            for (GraphNode node : pointer.adjacentNodes()) {
+                if (!foundNode.contains(node)) {
+                    selectedNodes.add(node);
+                    foundNode.add(node);
+                }
+            }
+        }
+        List<GraphNodeHelper> result = new LinkedList<>();
+        for (GraphNode node : foundNode) {
+            result.add(helper(node));
+        }
+        return result;
+    }
+
+    private GraphNodeHelper helper(GraphNode node) {
+        GraphNodeHelper helper = new GraphNodeHelper(node.getName());
+        return helper;
+    }
+
+    private List<GraphEdgeHelper> getGraphEdges(GraphNode head) {
+        Set<GraphEdge> foundEdges = new HashSet<>();
+        List<GraphNode> selectedNodes = new LinkedList<>();
+        selectedNodes.add(head);
+        while (selectedNodes.size() > 0) {
+            GraphNode pointer = selectedNodes.remove(0);
+            for (GraphEdge edge : pointer.getEdges()) {
+                if (!foundEdges.contains(edge)) {
+                    selectedNodes.add(edge.getAdjacent(pointer));
+                    foundEdges.add(edge);
+                }
+            }
+        }
+        List<GraphEdgeHelper> result = new LinkedList<>();
+        for (GraphEdge edge : foundEdges) {
+            result.add(edge.getHelper());
+        }
+        return result;
+    }
+
+
+
     public GraphNode image_1() {
         return imageGraphImp.image_1();
     }
 
-    @Override
     public GraphNode image_2() {
         return imageGraphImp.image_2();
     }
 
-    @Override
     public GraphNode image_3() {
         return imageGraphImp.image_3();
     }
 
-    @Override
     public GraphNode image_4() {
         return imageGraphImp.image_4();
     }
 
-    @Override
     public GraphNode image_5() {
         return imageGraphImp.image_5();
     }
 
-    @Override
     public GraphNode image_6() {
         return imageGraphImp.image_6();
     }
 
-    @Override
     public GraphNode image_7() {
         return imageGraphImp.image_7();
     }
 
-    @Override
     public GraphNode image_8() {
         return imageGraphImp.image_8();
     }
 
-    @Override
     public GraphNode image_9() { return imageGraphImp.image_9(); }
 
-    @Override
     public GraphNode image_11() {
         return imageGraphImp.image_11();
     }
 
-    @Override
     public GraphNode image_12() {
         return imageGraphImp.image_12();
     }
 
-    @Override
     public GraphNode image_13() {
         return imageGraphImp.image_13();
     }
 
-    @Override
     public GraphNode image_14() {
         return imageGraphImp.image_14();
     }
 
-    @Override
     public GraphNode image_17() {
         return imageGraphImp.image_17();
     }
 
-    @Override
     public GraphNode image_18() {
         return imageGraphImp.image_18();
     }
 
-    @Override
     public GraphNode image_19() {
         return imageGraphImp.image_19();
     }
 
-    @Override
     public GraphNode image_20() {
         return imageGraphImp.image_20();
     }
@@ -138,8 +188,7 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
-    @Override
-    public GraphNode getGraphFromImage(int name) {
+    private GraphNode getGraphFromImage(int name) {
         GraphNode graphNode;
         switch (name){
             case 1:
