@@ -159,7 +159,7 @@ export default {
         method: "POST",
         body: formData
       }).then(response =>{
-        if (response.ok){
+        if (response.ok) {
           return response.json()
         }
       }).then(json => {

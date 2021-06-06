@@ -70,14 +70,15 @@ export default {
       }
     },
     ImageGraph(obj){
+      console.log(obj);
       this.showGraph = false
       this.ImagePreview = true
       //  add nodes and wires to arrays
-      for (let i = 0 ; i < obj.graph.nodes.length ; i++){
+      for (let i = 0 ; i < obj.nodes.length ; i++){
         let x = (Math.random() * 600) + 100
         let y = (Math.random() * 300) + 100
         let Class = ''
-        switch (obj.graph.nodes[i].charAt(0)){
+        switch (obj.nodes[i].name.charAt(0)){
           case 'P':
             Class = 'node-power-source';
              break;
@@ -89,42 +90,41 @@ export default {
             break;
         }
         const newNode = {
-          text : obj.graph.nodes[i],
+          text : obj.nodes[i].name,
           x : x,
           y : y,
           mode : Class
         }
         this.nodes.push(newNode)
       }
-      for (let j = 0 ; j < obj.graph.edges.length ; j++){
+      for (let j = 0 ; j < obj.edges.length ; j++){
         let firstx = 0
         let firsty = 0
         let secondx = 0
         let secondy = 0
         for (let i = 0 ; i < this.nodes.length ;i++){
-          if(obj.graph.edges[j].firstNode == this.nodes[i].text ){
+          if(obj.edges[j].firstNode == this.nodes[i].text ){
             firstx = this.nodes[i].x + 12.5
             firsty = this.nodes[i].y + 12.5
           }
-          if(obj.graph.edges[j].secondNode == this.nodes[i].text ){
+          if(obj.edges[j].secondNode == this.nodes[i].text ){
             secondx = this.nodes[i].x + 12.5
             secondy = this.nodes[i].y + 12.5
           }
         }
         const newWire = {
-          first: obj.graph.edges[j].firstNode,
-          second: obj.graph.edges[j].secondNode,
+          first: obj.edges[j].firstNode,
+          second: obj.edges[j].secondNode,
           x1: firstx,
           y1: firsty,
           x2: secondx,
           y2: secondy,
-          wireCost: obj.graph.edges[j].cost,
+          wireCost: obj.edges[j].cost,
           wireStyle : "stroke:rgb(0,0,0);stroke-width:4",
           key :this.key
         }
         this.wires.push(newWire)
       }
-      this.imgSrc = require(obj.image)
     },
     save(){
       html2canvas(document.getElementById('graph-content')).then(function(canvas) {
