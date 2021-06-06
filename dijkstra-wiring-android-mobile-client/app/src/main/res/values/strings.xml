@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ElectricProject</string>
+    <string name="capture_image">capture_image</string>
+    <string name="upload">upload</string>
+    <string name="draw">Draw</string>
+    <string name="take_photo">Take Photo</string>
+</resources>
